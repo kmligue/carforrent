@@ -36,26 +36,27 @@
                                 <div class="form-group">
                                     <div class="img-preview"></div>
                                     <label for="image">Image</label>
-                                    <input type="file" id="image" name="image">
+                                    {{ Form::file('file', array('id' => 'image', 'name' => 'image')) }}
+                                    <!-- <input type="file" id="image" name="image"> -->
                                     <!-- <p class="help-block">Example block-level help text here.</p> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="transmission">Transmission</label>
-                                    <!-- <select class="form-control" name="transmission">
-                                        <option value="automatic">Automatic</option>
-                                        <option value="manual">Manual</option>
-                                    </select> -->
                                     {{ Form::select('transmission', array('automatic' => 'Automatic', 'manual' => 'Manual'), Input::get('transmission'), array('class' => 'form-control')) }}
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea rows="4" class="form-control" id="description" name="description">{{ Input::old('description') }}</textarea>
+                                    <label for="style">Style</label>
+                                    <input type="text" class="form-control" id="style" name="style" value="{{ Input::old('style') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="seating">Seating</label>
+                                    <input type="number" class="form-control" id="seating" name="seating" value="{{ Input::old('seating') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="rate">Rate per day</label>
                                     <input type="text" class="form-control" id="rate" name="rate" value="{{ Input::old('rate') }}">
                                 </div>
-                                <button type="submit" class="btn btn-success pull-right">Submit</button>
+                                <button type="submit" class="btn btn-success pull-right">Add</button>
                             {{ Form::close() }}
                         </div>  
                     </div>

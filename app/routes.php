@@ -11,10 +11,10 @@
 |
 */
 
-// Route::get('/', function()
-// {
-// 	return View::make('hello');
-// });
+Route::get('/', function()
+{
+	return View::make('client.home');
+});
 
 Route::group(array('before' => 'guest'), function() {
 	Route::get('admin', array('uses' => 'LoginController@showLogin'));
@@ -26,9 +26,15 @@ Route::group(array('before' => 'auth'), function() {
 	});
 
 	Route::get('admin/car', array('uses' => 'CarController@car'));
+	Route::get('admin/car/archive', array('uses' => 'CarController@showArchive'));
+	Route::get('admin/car/{id}/edit', array('uses' => 'CarController@showCar'));
+	Route::post('admin/car/{id}/edit', array('uses' => 'CarController@editCar'));
+	Route::delete('admin/car/{id}/archive', array('uses' => 'CarController@archiveCar'));
 	Route::get('admin/car/add', function() {
 		return View::make('admin.carAdd');
 	});
+
+	Route::get('admin/location', array('uses' => 'LocationController@location'));
 
 	Route::get('admin/booking', function() {
 		return View::make('admin.booking');

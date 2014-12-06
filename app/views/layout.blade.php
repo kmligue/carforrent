@@ -7,7 +7,6 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <title>U-DriveBohol</title>
 
-	    <!-- Bootstrap -->
 	    {{ HTML::style('/assets/css/bootstrap.min.css') }}
 	    {{ HTML::style('/assets/css/plugins/metisMenu/metisMenu.min.css') }}
 	    {{ HTML::style('/assets/css/sb-admin-2.css') }}
@@ -43,9 +42,7 @@
 
 		@endif
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	    {{ HTML::script('/assets/js/jquery.js') }}
-	    <!-- Include all compiled plugins (below), or include individual files as needed -->
 	    {{ HTML::script('/assets/js/bootstrap.min.js') }}
 	    {{ HTML::script('/assets/js/plugins/metisMenu/metisMenu.min.js') }}
 	    {{ HTML::script('/assets/js/sb-admin-2.js') }}

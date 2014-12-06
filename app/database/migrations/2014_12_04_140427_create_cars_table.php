@@ -19,9 +19,11 @@ class CreateCarsTable extends Migration {
 			$table->string('slug', 255);
 			$table->string('image', 255);
 			$table->string('transmission', 64);
-			$table->string('description', 512);
+			$table->string('style', 255);
+			$table->integer('seating');
 			$table->double('rate', 15, 8);
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 
