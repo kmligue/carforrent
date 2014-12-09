@@ -8,6 +8,14 @@ class CarController extends BaseController {
 		return View::make('admin.car')->with('cars', $cars);
 	}
 
+	public function showCar($id) {
+
+		$car = Car::findOrFail($id);
+
+		return View::make('admin.carEdit')->with('car', $car);
+
+	}
+
 	public function showArchive() {
 		$cars = Car::onlyTrashed()
 					->paginate(2);
@@ -61,14 +69,6 @@ class CarController extends BaseController {
 				return Redirect::to('admin/car/add')->with('error', $e->getMessage())->withInput(Input::except('image'));
 			}
 		}
-
-	}
-
-	public function showCar($id) {
-
-		$car = Car::findOrFail($id);
-
-		return View::make('admin.carEdit')->with('car', $car);
 
 	}
 
@@ -132,6 +132,18 @@ class CarController extends BaseController {
 			return Redirect::to('admin/car')->with('success', 'Successfully deleted!');
 		} catch (Exception $e) {
 			return Redirect::to('admin/car')->with('error', $e->getMessage());
+		}
+
+	}
+
+	public function restoreCar($id) {
+
+		try {
+			$car = Car::withTrashed()->where('id', '=', $id)->restore();
+
+			return Redirect::to('admin/car/archive')->with('success', 'Successfully restored!');
+		} catch (Exception $e) {
+			return Redirect::to('admin/car/archive')->with('error', $e->getMessage());
 		}
 
 	}

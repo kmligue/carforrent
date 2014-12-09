@@ -2,17 +2,36 @@
 
 @section('content')
 	
-	<div class="border-bot-1">
-		<div class="container">
-			<div class="header-menu">
-				<div class="row">
-					<div class="col-sm-8 logo">
-						<img src="http://placehold.it/185x75">
-					</div>
-					<div class="col-sm-4 contact-no">
-						<p class="text-muted">Contact us: +639092609523</p>
-					</div>
+	<div class="container" id="home">
+		<div class="header-menu" style="display: block">
+			<div class="row">
+				<div class="col-sm-6 logo">
+					<img src="http://placehold.it/185x75">
 				</div>
+				<div class="col-sm-6 pad-top-10">
+					<ul class="nav nav-pills pull-right">
+						<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
+						<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
+						<li role="presentation"><a class="flat" href="#about">About Us</a></li>
+						<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="header-menu-scroll col-xs-12 clearfix navbar-fixed-top" style="display: none; position: fixed; background-color: rgb(47, 47, 47); z-index: 999;">
+		<div class="row">
+			<div class="col-sm-6 logo">
+				<img src="http://placehold.it/185x45">
+			</div>
+			<div class="col-sm-6" style="padding-top: 2px;">
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
+					<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
+					<li role="presentation"><a class="flat" href="#about">About Us</a></li>
+					<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -36,9 +55,11 @@
 							<div class="quick">
 								<form action="" method="POST" role="form">
 									<div class="form-group">
-										<select class="form-control flat" placeholder="Enter Location">
+										<select class="form-control flat text-capitalize" placeholder="Enter Location">
 											<option style="display: none; color: #777;">Enter Location</option>
-											<option>Tagbilaran</option>
+											@foreach($locations as $location)
+												<option class="text-capitalize" value="{{ $location->id }}">{{ $location->address }}</option>
+											@endforeach
 										</select>
 									</div>
 
@@ -180,33 +201,27 @@
 
 			</div>
 		</div>
-
-		<div class="col-sm-6 about">
-			<h2 class="text-center">About Us</h2>
-			<p class="text-justify">U-DriveBohol is your friendly travel partner to Bohol. We offer safe and comfortable tour and travel services to Bohol's top tourist destinations such as the Chocolate Hills. We  also provide car rental services for those looking to rent a car, van, or motorcycle anywhere in the province. Contact us now for your bookings and inquiries!</p>
-		</div>
-		<div class="col-sm-6 contact">
-			<h2 class="text-center">Contact Us</h2>
-		</div>
+		
 	</header>
 
 	<section>
 		<div class="container">
 			<div>
-				<h3>Available Cars</h3>
+				<h3 id="available-cars">Available Cars</h3>
 			</div>
-
+			
+			@foreach($cars as $car)
 			<div class="col-sm-4 cars-container">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<p class="price">Php 18, 000 per day</p>
+						<p class="price">Php {{ number_format($car->rate, 2) }} per day</p>
 						<div class="pad-lr-25">
-							<img class="img-responsive" src="/assets/img/07-08_Honda_Element_SC.jpg">
-							<p class="car-name text-center">Honda Civic Coupe</p>
+							<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+							<p class="car-name text-center text-capitalize">{{ $car->name }}</p>
 							<div class="car-details">
-								<p>Style: Sedan</p>
-								<p>Seating Capacity: 5</p>
-								<p>Transmission: Automatic</p>
+								<p class="text-capitalize">Style: {{ $car->style }}</p>
+								<p>Seating Capacity: {{ $car->seating }}</p>
+								<p class="text-capitalize">Transmission: {{ $car->transmission }}</p>
 								<div class="text-center">
 									<button type="button" class="btn btn-book">Book Now</button>
 								</div>
@@ -215,45 +230,43 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-4 cars-container">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<p class="price">Php 18, 000 per day</p>
-						<div class="pad-lr-25">
-							<img class="img-responsive" src="/assets/img/2005-2007_Honda_Inspire.jpg">
-							<p class="car-name text-center">Honda Civic Hybrid</p>
-							<div class="car-details">
-								<p>Style: Sedan</p>
-								<p>Seating Capacity: 5</p>
-								<p>Transmission: Automatic</p>
-								<div class="text-center">
-									<button type="button" class="btn btn-book">Book Now</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-4 cars-container">
-				<div class="panel panel-default">
-					<div class="panel-body">
-					   	<p class="price">Php 18, 000 per day</p>
-					   	<div class="pad-lr-25">
-					   		<img class="img-responsive" src="/assets/img/2007-Honda-Fit-Sport.jpg">
-					   		<p class="car-name text-center">Honda Civic Tourer</p>
-							<div class="car-details">
-								<p>Style: Sedan</p>
-								<p>Seating Capacity: 5</p>
-								<p>Transmission: Automatic</p>
-								<div class="text-center">
-									<button type="button" class="btn btn-book">Book Now</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			@endforeach
 
+		</div>
+	</section>
+
+	<section class="about clearfix" id="about">
+		<div class="col-sm-6 col-sm-offset-3 about">
+			<h2 class="text-center">About Us</h2>
+			<p class="text-justify">U-DriveBohol is your friendly travel partner to Bohol. We offer safe and comfortable tour and travel services to Bohol's top tourist destinations such as the Chocolate Hills. We  also provide car rental services for those looking to rent a car, van, or motorcycle anywhere in the province. Contact us now for your bookings and inquiries!</p>
+		</div>
+	</section>
+
+	<section class="contact clearfix" id="contact">
+		<div class="col-sm-12 contact">
+			<h2 class="text-center">Contact Us</h2>
+
+			<div class="col-sm-6 col-sm-offset-3">
+				<form action="" method="POST" role="form">
+				
+					<div class="form-group">
+						<label for="name">Name</label>
+						<input type="text" class="form-control" id="name" name="name">
+					</div>
+
+					<div class="form-group">
+						<label for="email">Email</label>
+						<input type="text" class="form-control" id="email" name="email">
+					</div>
+
+					<div class="form-group">
+						<label for="message">Message</label>
+						<textarea class="form-control" id="message" name="message"></textarea>
+					</div>
+
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form>
+			</div>
 		</div>
 	</section>
 

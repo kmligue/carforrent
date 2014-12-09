@@ -18,13 +18,13 @@
     </div>
 
     @if(Session::has('error'))
-	    <div class="alert alert-danger">
+	    <div class="alert alert-danger col-sm-6">
 	        {{ Session::get('error') }}
 	    </div>
 	@endif
 
 	@if(Session::has('success'))
-	    <div class="alert alert-success">
+	    <div class="alert alert-success col-sm-6">
 	        {{ Session::get('success') }}
 	    </div>
 	@endif
@@ -53,9 +53,9 @@
 							<td>{{ $car->seating }}</td>
 							<td>Php {{ number_format($car->rate, 2) }}</td>
 							<td>
-								<a class="btn btn-success btn-sm" href="/admin/car/{{ $car->id }}/edit" style="display: inline-block"><i class="glyphicon glyphicon-edit"></i></a>
+								<a class="btn btn-success btn-sm" href="/admin/car/{{ $car->id }}/edit" style="display: inline-block" title="Edit"><i class="glyphicon glyphicon-edit"></i></a>
 								{{ Form::open(array('role' => 'form', 'files' => true, 'method' => 'delete', 'url' => '/admin/car/'. $car->id .'/archive', 'style' => 'display: inline-block;')) }}
-									<button class="btn btn-danger btn-sm" type="submit"><i class="glyphicon glyphicon-trash"></i></button>
+									<button class="btn btn-danger btn-sm" type="submit" title="Archive"><i class="glyphicon glyphicon-trash"></i></button>
 								{{ Form::close() }}
 							</td>
 						</tr>

@@ -10,6 +10,7 @@
 	    {{ HTML::style('/assets/css/bootstrap.min.css') }}
 	    {{ HTML::style('/assets/jquery-ui-1.11.2.custom/jquery-ui.min.css') }}
 	    {{ HTML::style('/assets/font-awesome-4.1.0/css/font-awesome.min.css') }}
+	    {{ HTML::style('/assets/css/animate.css') }}
 	    {{ HTML::style('/assets/css/style.css') }}
 
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -26,6 +27,7 @@
 	    {{ HTML::script('/assets/js/jquery.js') }}
 	    {{ HTML::script('/assets/js/bootstrap.min.js') }}
 	    {{ HTML::script('/assets/jquery-ui-1.11.2.custom/jquery-ui.min.js') }}
+	    {{ HTML::script('/assets/js/skrollr.min.js') }}
 
 	    <script>
 	    	$(function() {
@@ -36,6 +38,39 @@
 	    			}
 	    		});
 	    		$('#datepicker2').datepicker();
+
+	    		skrollr.init({
+	    			smoothScrolling: true,
+	    			forceHeight: false
+	    		});
+
+	    		$('a[href*=#]:not([href=#])').click(function() {
+	    			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+	    				var target = $(this.hash);
+	    				target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+	    				if (target.length) {
+	    					$('html,body').animate({
+	    						scrollTop: target.offset().top
+	    					}, 1000);
+	    					return false;
+	    				}
+	    			}
+	    		});
+
+	    		$(window).scroll(function (event) {
+	    			var scroll = $(window).scrollTop();
+    				console.log(scroll);
+    				if(scroll >= 100) {
+    					$('.header-menu-scroll').css('display', 'block');
+    					$('.header-menu-scroll').removeClass('animated fadeOutUp');
+    					$('.header-menu-scroll').addClass('animated fadeInDown');
+    				}
+    				else {
+    					$('.header-menu-scroll').removeClass('animated fadeInDown');
+    					$('.header-menu-scroll').addClass('animated fadeOutUp');
+    					$('.header-menu-scroll').css('display', 'none');
+    				}
+				});
 	    	});
 	    </script>
 	</body>
