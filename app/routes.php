@@ -12,6 +12,9 @@
 */
 
 Route::get('/', array('uses' => 'HomeController@home'));
+Route::get('booking', function() {
+	return View::make('client.booking');
+});
 
 Route::group(array('before' => 'guest'), function() {
 	Route::get('admin', array('uses' => 'LoginController@showLogin'));
