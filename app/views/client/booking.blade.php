@@ -1,7 +1,7 @@
 @extends('client.layout')
 
 @section('content')
-	
+
 	<div class="container" id="home">
 		<div class="header-menu" style="display: block">
 			<div class="row">
@@ -44,7 +44,7 @@
 				<div class="progress">
 					<div class="progress-bar"></div>
 				</div>
-				<a class="smpl-step-icon"><i class="fa fa-edit" style="font-size: 58px; padding-left: 8px; padding-top: 9px; color: black;"></i></a>
+				<a href="/" class="smpl-step-icon"><i class="fa fa-edit" style="font-size: 58px; padding-left: 8px; padding-top: 9px; color: black;"></i></a>
 				<div class="smpl-step-info text-center">CREATE REQUEST</div>
 			</div>
 
@@ -82,144 +82,166 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="quick">
-							<form action="" method="POST" role="form">
+							{{ Form::open(array('url' => '/booking')) }}
+									
+								@if($errors->count() > 0)
+									<div class="alert alert-danger">
+										@foreach($errors->all() as $error)
+											<div>{{ $error }}</div>
+										@endforeach
+									</div>
+								@endif
+
 								<div class="form-group">
-									<select class="form-control flat text-capitalize" placeholder="Enter Location">
-										<option style="display: none; color: #777;">Enter Location</option>
-										
+									<select class="form-control flat text-capitalize" name="location" placeholder="Enter Location">
+										<option style="display: none; color: #777;" value="">Enter Location</option>
+										@foreach($locations as $location)
+											<option class="text-capitalize" value="{{ $location->id }}" {{ $inputs['location'] == $location->id ? 'selected' : '' }}>{{ $location->address }}</option>
+										@endforeach
 									</select>
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-7" style="padding-left: 0">
-										<input type="text" class="form-control flat small-font pad-5" id="datepicker1" placeholder="Pick-up date">
-										<i class="glyphicon glyphicon-calendar input-icon" style="right: 23px; top: 10px;"></i>
+									<label>
+										<input type="checkbox" name="diff-location" {{ !empty($inputs['diff-location']) ? 'checked' : '' }}> <span class="text-muted">Returning to Different location</span>
+									</label>
+									<select class="form-control flat text-capitalize" name="return-loc" placeholder="Return Location" style="display: {{ !empty($inputs['diff-location']) ? 'block;' : 'none;' }}">
+										<option style="display: none; color: #777;" value="">Return Location</option>
+										@foreach($locations as $location)
+											<option class="text-capitalize" value="{{ $location->id }}" {{ $inputs['return-loc'] == $location->id ? 'selected' : '' }}>{{ $location->address }}</option>
+										@endforeach
+									</select>
+								</div>
+
+								<div class="form-group">
+									<div class="col-sm-7 pad-5" style="padding-left: 0">
+										<input type="text" class="form-control flat small-font pad-5" id="datepicker1" name="pick-up-date" placeholder="Pick-up date" value="{{ $inputs['pick-up-date'] }}">
+										<i class="glyphicon glyphicon-calendar input-icon"></i>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-5" style="padding-right: 0;">
-										<select class="form-control flat small-font pad-5">
+									<div class="col-sm-5 pad-5">
+										<select class="form-control flat small-font pad-5" name="pick-up-time">
 											<option value="">Time</option>
-											<option value="00:00">00:00</option>
-											<option value="00:30">00:30</option>
-											<option value="01:00">01:00</option>
-											<option value="01:30">01:30</option>
-											<option value="02:00">02:00</option>
-											<option value="02:30">02:30</option>
-											<option value="03:00">03:00</option>
-											<option value="03:30">03:30</option>
-											<option value="04:00">04:00</option>
-											<option value="04:30">04:30</option>
-											<option value="05:00">05:00</option>
-											<option value="05:30">05:30</option>
-											<option value="06:00">06:00</option>
-											<option value="06:30">06:30</option>
-											<option value="07:00">07:00</option>
-											<option value="07:30">07:30</option>
-											<option value="08:00">08:00</option>
-											<option value="08:30">08:30</option>
-											<option value="09:00">09:00</option>
-											<option value="09:30">09:30</option>
-											<option value="10:00">10:00</option>
-											<option value="10:30">10:30</option>
-											<option value="11:00">11:00</option>
-											<option value="11:30">11:30</option>
-											<option value="12:00">12:00</option>
-											<option value="12:30">12:30</option>
-											<option value="13:00">13:00</option>
-											<option value="13:30">13:30</option>
-											<option value="14:00">14:00</option>
-											<option value="14:30">14:30</option>
-											<option value="15:00">15:00</option>
-											<option value="15:30">15:30</option>
-											<option value="16:00">16:00</option>
-											<option value="16:30">16:30</option>
-											<option value="17:00">17:00</option>
-											<option value="17:30">17:30</option>
-											<option value="18:00">18:00</option>
-											<option value="18:30">18:30</option>
-											<option value="19:00">19:00</option>
-											<option value="19:30">19:30</option>
-											<option value="20:00">20:00</option>
-											<option value="20:30">20:30</option>
-											<option value="21:00">21:00</option>
-											<option value="21:30">21:30</option>
-											<option value="22:00">22:00</option>
-											<option value="22:30">22:30</option>
-											<option value="23:00">23:00</option>
-											<option value="23:30">23:30</option>
+											<option value="00:00" {{ $inputs['pick-up-time'] == '00:00' ? 'selected' : '' }}>00:00</option>
+											<option value="00:30" {{ $inputs['pick-up-time'] == '00:30' ? 'selected' : '' }}>00:30</option>
+											<option value="01:00" {{ $inputs['pick-up-time'] == '01:00' ? 'selected' : '' }}>01:00</option>
+											<option value="01:30" {{ $inputs['pick-up-time'] == '01:30' ? 'selected' : '' }}>01:30</option>
+											<option value="02:00" {{ $inputs['pick-up-time'] == '02:00' ? 'selected' : '' }}>02:00</option>
+											<option value="02:30" {{ $inputs['pick-up-time'] == '02:30' ? 'selected' : '' }}>02:30</option>
+											<option value="03:00" {{ $inputs['pick-up-time'] == '03:00' ? 'selected' : '' }}>03:00</option>
+											<option value="03:30" {{ $inputs['pick-up-time'] == '03:30' ? 'selected' : '' }}>03:30</option>
+											<option value="04:00" {{ $inputs['pick-up-time'] == '04:00' ? 'selected' : '' }}>04:00</option>
+											<option value="04:30" {{ $inputs['pick-up-time'] == '04:30' ? 'selected' : '' }}>04:30</option>
+											<option value="05:00" {{ $inputs['pick-up-time'] == '05:00' ? 'selected' : '' }}>05:00</option>
+											<option value="05:30" {{ $inputs['pick-up-time'] == '05:30' ? 'selected' : '' }}>05:30</option>
+											<option value="06:00" {{ $inputs['pick-up-time'] == '06:00' ? 'selected' : '' }}>06:00</option>
+											<option value="06:30" {{ $inputs['pick-up-time'] == '06:30' ? 'selected' : '' }}>06:30</option>
+											<option value="07:00" {{ $inputs['pick-up-time'] == '07:00' ? 'selected' : '' }}>07:00</option>
+											<option value="07:30" {{ $inputs['pick-up-time'] == '08:00' ? 'selected' : '' }}>08:00</option>
+											<option value="08:30" {{ $inputs['pick-up-time'] == '08:30' ? 'selected' : '' }}>08:30</option>
+											<option value="09:00" {{ $inputs['pick-up-time'] == '09:00' ? 'selected' : '' }}>09:00</option>
+											<option value="09:30" {{ $inputs['pick-up-time'] == '09:30' ? 'selected' : '' }}>09:30</option>
+											<option value="10:00" {{ $inputs['pick-up-time'] == '10:00' ? 'selected' : '' }}>10:00</option>
+											<option value="10:30" {{ $inputs['pick-up-time'] == '10:30' ? 'selected' : '' }}>10:30</option>
+											<option value="11:00" {{ $inputs['pick-up-time'] == '11:00' ? 'selected' : '' }}>11:00</option>
+											<option value="11:30" {{ $inputs['pick-up-time'] == '11:30' ? 'selected' : '' }}>11:30</option>
+											<option value="12:00" {{ $inputs['pick-up-time'] == '12:00' ? 'selected' : '' }}>12:00</option>
+											<option value="12:30" {{ $inputs['pick-up-time'] == '12:30' ? 'selected' : '' }}>12:30</option>
+											<option value="13:00" {{ $inputs['pick-up-time'] == '13:00' ? 'selected' : '' }}>13:00</option>
+											<option value="13:30" {{ $inputs['pick-up-time'] == '13:30' ? 'selected' : '' }}>13:30</option>
+											<option value="14:00" {{ $inputs['pick-up-time'] == '14:00' ? 'selected' : '' }}>14:00</option>
+											<option value="14:30" {{ $inputs['pick-up-time'] == '14:30' ? 'selected' : '' }}>14:30</option>
+											<option value="15:00" {{ $inputs['pick-up-time'] == '15:00' ? 'selected' : '' }}>15:00</option>
+											<option value="15:30" {{ $inputs['pick-up-time'] == '15:30' ? 'selected' : '' }}>15:30</option>
+											<option value="16:00" {{ $inputs['pick-up-time'] == '16:00' ? 'selected' : '' }}>16:00</option>
+											<option value="16:30" {{ $inputs['pick-up-time'] == '16:30' ? 'selected' : '' }}>16:30</option>
+											<option value="17:00" {{ $inputs['pick-up-time'] == '17:00' ? 'selected' : '' }}>17:00</option>
+											<option value="17:30" {{ $inputs['pick-up-time'] == '17:30' ? 'selected' : '' }}>17:30</option>
+											<option value="18:00" {{ $inputs['pick-up-time'] == '18:00' ? 'selected' : '' }}>18:00</option>
+											<option value="18:30" {{ $inputs['pick-up-time'] == '18:30' ? 'selected' : '' }}>18:30</option>
+											<option value="19:00" {{ $inputs['pick-up-time'] == '19:00' ? 'selected' : '' }}>19:00</option>
+											<option value="19:30" {{ $inputs['pick-up-time'] == '19:30' ? 'selected' : '' }}>19:30</option>
+											<option value="20:00" {{ $inputs['pick-up-time'] == '20:00' ? 'selected' : '' }}>20:00</option>
+											<option value="20:30" {{ $inputs['pick-up-time'] == '20:30' ? 'selected' : '' }}>20:30</option>
+											<option value="21:00" {{ $inputs['pick-up-time'] == '21:00' ? 'selected' : '' }}>21:00</option>
+											<option value="21:30" {{ $inputs['pick-up-time'] == '21:30' ? 'selected' : '' }}>21:30</option>
+											<option value="22:00" {{ $inputs['pick-up-time'] == '22:00' ? 'selected' : '' }}>22:00</option>
+											<option value="22:30" {{ $inputs['pick-up-time'] == '22:30' ? 'selected' : '' }}>22:30</option>
+											<option value="23:00" {{ $inputs['pick-up-time'] == '23:00' ? 'selected' : '' }}>23:00</option>
+											<option value="23:30" {{ $inputs['pick-up-time'] == '23:30' ? 'selected' : '' }}>23:30</option>
 										</select>
-										<i class="glyphicon glyphicon-time input-icon" style="top: 10px;"></i>
+										<i class="glyphicon glyphicon-time input-icon"></i>
 									</div>
 								</div>
 
 								<div class="form-group">
-									<div class="col-sm-7" style="padding-left: 0;">
-										<input type="text" class="form-control flat small-font pad-5" id="datepicker2" placeholder="Return date">
-										<i class="glyphicon glyphicon-calendar input-icon" style="right: 23px; top: 10px;"></i>
+									<div class="col-sm-7 pad-5" style="padding-left: 0;">
+										<input type="text" class="form-control flat small-font pad-5" id="datepicker2" name="return-date" placeholder="Return date" value="{{ $inputs['return-date'] }}">
+										<i class="glyphicon glyphicon-calendar input-icon"></i>
 									</div>
 								</div>
-
+								
 								<div class="form-group">
-									<div class="col-sm-5" style="padding-right: 0;">
-										<select class="form-control flat small-font pad-5">
+									<div class="col-sm-5 pad-5">
+										<select class="form-control flat small-font pad-5" name="return-time">
 											<option value="">Time</option>
-											<option value="00:00">00:00</option>
-											<option value="00:30">00:30</option>
-											<option value="01:00">01:00</option>
-											<option value="01:30">01:30</option>
-											<option value="02:00">02:00</option>
-											<option value="02:30">02:30</option>
-											<option value="03:00">03:00</option>
-											<option value="03:30">03:30</option>
-											<option value="04:00">04:00</option>
-											<option value="04:30">04:30</option>
-											<option value="05:00">05:00</option>
-											<option value="05:30">05:30</option>
-											<option value="06:00">06:00</option>
-											<option value="06:30">06:30</option>
-											<option value="07:00">07:00</option>
-											<option value="07:30">07:30</option>
-											<option value="08:00">08:00</option>
-											<option value="08:30">08:30</option>
-											<option value="09:00">09:00</option>
-											<option value="09:30">09:30</option>
-											<option value="10:00">10:00</option>
-											<option value="10:30">10:30</option>
-											<option value="11:00">11:00</option>
-											<option value="11:30">11:30</option>
-											<option value="12:00">12:00</option>
-											<option value="12:30">12:30</option>
-											<option value="13:00">13:00</option>
-											<option value="13:30">13:30</option>
-											<option value="14:00">14:00</option>
-											<option value="14:30">14:30</option>
-											<option value="15:00">15:00</option>
-											<option value="15:30">15:30</option>
-											<option value="16:00">16:00</option>
-											<option value="16:30">16:30</option>
-											<option value="17:00">17:00</option>
-											<option value="17:30">17:30</option>
-											<option value="18:00">18:00</option>
-											<option value="18:30">18:30</option>
-											<option value="19:00">19:00</option>
-											<option value="19:30">19:30</option>
-											<option value="20:00">20:00</option>
-											<option value="20:30">20:30</option>
-											<option value="21:00">21:00</option>
-											<option value="21:30">21:30</option>
-											<option value="22:00">22:00</option>
-											<option value="22:30">22:30</option>
-											<option value="23:00">23:00</option>
-											<option value="23:30">23:30</option>
+											<option value="00:00" {{ $inputs['return-time'] == '00:00' ? 'selected' : '' }}>00:00</option>
+											<option value="00:30" {{ $inputs['return-time'] == '00:30' ? 'selected' : '' }}>00:30</option>
+											<option value="01:00" {{ $inputs['return-time'] == '01:00' ? 'selected' : '' }}>01:00</option>
+											<option value="01:30" {{ $inputs['return-time'] == '01:30' ? 'selected' : '' }}>01:30</option>
+											<option value="02:00" {{ $inputs['return-time'] == '02:00' ? 'selected' : '' }}>02:00</option>
+											<option value="02:30" {{ $inputs['return-time'] == '02:30' ? 'selected' : '' }}>02:30</option>
+											<option value="03:00" {{ $inputs['return-time'] == '03:00' ? 'selected' : '' }}>03:00</option>
+											<option value="03:30" {{ $inputs['return-time'] == '03:30' ? 'selected' : '' }}>03:30</option>
+											<option value="04:00" {{ $inputs['return-time'] == '04:00' ? 'selected' : '' }}>04:00</option>
+											<option value="04:30" {{ $inputs['return-time'] == '04:30' ? 'selected' : '' }}>04:30</option>
+											<option value="05:00" {{ $inputs['return-time'] == '05:00' ? 'selected' : '' }}>05:00</option>
+											<option value="05:30" {{ $inputs['return-time'] == '05:30' ? 'selected' : '' }}>05:30</option>
+											<option value="06:00" {{ $inputs['return-time'] == '06:00' ? 'selected' : '' }}>06:00</option>
+											<option value="06:30" {{ $inputs['return-time'] == '06:30' ? 'selected' : '' }}>06:30</option>
+											<option value="07:00" {{ $inputs['return-time'] == '07:00' ? 'selected' : '' }}>07:00</option>
+											<option value="07:30" {{ $inputs['return-time'] == '07:30' ? 'selected' : '' }}>07:30</option>
+											<option value="08:00" {{ $inputs['return-time'] == '08:00' ? 'selected' : '' }}>08:00</option>
+											<option value="08:30" {{ $inputs['return-time'] == '08:30' ? 'selected' : '' }}>08:30</option>
+											<option value="09:00" {{ $inputs['return-time'] == '09:00' ? 'selected' : '' }}>09:00</option>
+											<option value="09:30" {{ $inputs['return-time'] == '09:30' ? 'selected' : '' }}>09:30</option>
+											<option value="10:00" {{ $inputs['return-time'] == '10:00' ? 'selected' : '' }}>10:00</option>
+											<option value="10:30" {{ $inputs['return-time'] == '10:30' ? 'selected' : '' }}>10:30</option>
+											<option value="11:00" {{ $inputs['return-time'] == '11:00' ? 'selected' : '' }}>11:00</option>
+											<option value="11:30" {{ $inputs['return-time'] == '11:30' ? 'selected' : '' }}>11:30</option>
+											<option value="12:00" {{ $inputs['return-time'] == '12:00' ? 'selected' : '' }}>12:00</option>
+											<option value="12:30" {{ $inputs['return-time'] == '12:30' ? 'selected' : '' }}>12:30</option>
+											<option value="13:00" {{ $inputs['return-time'] == '13:00' ? 'selected' : '' }}>13:00</option>
+											<option value="13:30" {{ $inputs['return-time'] == '13:30' ? 'selected' : '' }}>13:30</option>
+											<option value="14:00" {{ $inputs['return-time'] == '14:00' ? 'selected' : '' }}>14:00</option>
+											<option value="14:30" {{ $inputs['return-time'] == '14:30' ? 'selected' : '' }}>14:30</option>
+											<option value="15:00" {{ $inputs['return-time'] == '15:00' ? 'selected' : '' }}>15:00</option>
+											<option value="15:30" {{ $inputs['return-time'] == '15:30' ? 'selected' : '' }}>15:30</option>
+											<option value="16:00" {{ $inputs['return-time'] == '16:00' ? 'selected' : '' }}>16:00</option>
+											<option value="16:30" {{ $inputs['return-time'] == '16:30' ? 'selected' : '' }}>16:30</option>
+											<option value="17:00" {{ $inputs['return-time'] == '17:00' ? 'selected' : '' }}>17:00</option>
+											<option value="17:30" {{ $inputs['return-time'] == '17:30' ? 'selected' : '' }}>17:30</option>
+											<option value="18:00" {{ $inputs['return-time'] == '18:00' ? 'selected' : '' }}>18:00</option>
+											<option value="18:30" {{ $inputs['return-time'] == '18:30' ? 'selected' : '' }}>18:30</option>
+											<option value="19:00" {{ $inputs['return-time'] == '19:00' ? 'selected' : '' }}>19:00</option>
+											<option value="19:30" {{ $inputs['return-time'] == '19:30' ? 'selected' : '' }}>19:30</option>
+											<option value="20:00" {{ $inputs['return-time'] == '20:00' ? 'selected' : '' }}>20:00</option>
+											<option value="20:30" {{ $inputs['return-time'] == '20:30' ? 'selected' : '' }}>20:30</option>
+											<option value="21:00" {{ $inputs['return-time'] == '21:00' ? 'selected' : '' }}>21:00</option>
+											<option value="21:30" {{ $inputs['return-time'] == '21:30' ? 'selected' : '' }}>21:30</option>
+											<option value="22:00" {{ $inputs['return-time'] == '22:00' ? 'selected' : '' }}>22:00</option>
+											<option value="22:30" {{ $inputs['return-time'] == '22:30' ? 'selected' : '' }}>22:30</option>
+											<option value="23:00" {{ $inputs['return-time'] == '23:00' ? 'selected' : '' }}>23:00</option>
+											<option value="23:30" {{ $inputs['return-time'] == '23:30' ? 'selected' : '' }}>23:30</option>
 										</select>
-										<i class="glyphicon glyphicon-time input-icon" style="top: 10px;"></i>
+										<i class="glyphicon glyphicon-time input-icon"></i>
 									</div>
 								</div>
 							
 								<button type="submit" class="btn btn-small flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Search</button>
-							</form>
+							{{ Form::close() }}
 						</div>
 					</div>
 				</div>
@@ -233,21 +255,23 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-sm-4">
-					    		<img class="img-responsive" src="/assets/uploads/07-08_honda_element_sc-5482bb67ea931.jpg">
-								<h6 class="text-center">Hyundai i20 or similar</h6>
-							</div>
-							<div class="col-sm-4">
-								<h6>Transmission: Automatic</h6>
-								<h6>Style: Sedan</h6>
-								<h6>Seating: 5</h6>
-							</div>
-							<div class="col-sm-4 text-right">
-								<h3 style="margin-top: 0;"><span class="label label-default">Php 5000 per day</span></h3>
-								<button type="submit" class="btn btn-sm flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book This Car</button>
-							</div>
-						</div>
+							@foreach($cars as $car)
+								<div class="row">
+									<div class="col-sm-4">
+							    		<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+										<h6 class="text-center">{{ $car->name }}</h6>
+									</div>
+									<div class="col-sm-4">
+										<h6>Transmission: {{ $car->transmission }}</h6>
+										<h6>Style: {{ $car->style }}</h6>
+										<h6>Seating: {{ $car->seating }}</h6>
+									</div>
+									<div class="col-sm-4 text-right">
+										<h3 style="margin-top: 0;"><span class="label label-default">Php {{ number_format($car->rate, 2) }} per day</span></h3>
+										<button type="submit" class="btn btn-sm flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book This Car</button>
+									</div>
+								</div>
+							@endforeach
 					</div>
 				</div>
 			</div>

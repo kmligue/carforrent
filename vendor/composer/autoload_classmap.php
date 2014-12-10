@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
+    'BookingController' => $baseDir . '/app/controllers/BookingController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
     'Boris\\ColoredInspector' => $vendorDir . '/d11wtq/boris/lib/Boris/ColoredInspector.php',
@@ -31,6 +32,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateBookingsTable' => $baseDir . '/app/database/migrations/2014_12_10_124507_create_bookings_table.php',
     'CreateCarsTable' => $baseDir . '/app/database/migrations/2014_12_04_140427_create_cars_table.php',
     'CreateLocationTable' => $baseDir . '/app/database/migrations/2014_12_06_112004_create_location_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2014_12_04_010414_create_users_table.php',

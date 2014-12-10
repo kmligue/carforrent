@@ -59,7 +59,7 @@
 
 	    		$(window).scroll(function (event) {
 	    			var scroll = $(window).scrollTop();
-    				console.log(scroll);
+
     				if(scroll >= 100) {
     					$('.header-menu-scroll').css('display', 'block');
     					$('.header-menu-scroll').removeClass('animated fadeOutUp');
@@ -70,6 +70,17 @@
     					$('.header-menu-scroll').addClass('animated fadeOutUp');
     					$('.header-menu-scroll').css('display', 'none');
     				}
+				});
+
+				$(':checkbox').on('click', function(evt) {
+					var $this = $(this);
+
+					if($this.is(':checked')) {
+						$('select[name="return-loc"]').css('display', 'block');
+					}
+					else {
+						$('select[name="return-loc"]').css('display', 'none');
+					}
 				});
 	    	});
 	    </script>

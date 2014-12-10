@@ -12,9 +12,6 @@
 */
 
 Route::get('/', array('uses' => 'HomeController@home'));
-Route::get('booking', function() {
-	return View::make('client.booking');
-});
 
 Route::group(array('before' => 'guest'), function() {
 	Route::get('admin', array('uses' => 'LoginController@showLogin'));
@@ -60,5 +57,6 @@ Route::group(array('before' => 'auth|csrf'), function() {
 
 Route::group(array('before' => 'csrf'), function() {
 	Route::post('admin', array('uses' => 'LoginController@doLogin'));
+	Route::post('booking', array('uses' => 'BookingController@booking'));
 });
 
