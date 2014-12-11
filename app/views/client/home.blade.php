@@ -53,13 +53,19 @@
 						</div>
 						<div class="panel-body">
 							<div class="quick">
-								{{ Form::open(array('url' => '/booking')) }}
+								{{ Form::open(array('url' => '/cars')) }}
 									
 									@if($errors->count() > 0)
 										<div class="alert alert-danger">
 											@foreach($errors->all() as $error)
 												<div>{{ $error }}</div>
 											@endforeach
+										</div>
+									@endif
+
+									@if(Session::has('error'))
+										<div class="alert alert-danger">
+											{{ Session.get('error') }}
 										</div>
 									@endif
 

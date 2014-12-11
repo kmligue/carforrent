@@ -57,6 +57,9 @@ Route::group(array('before' => 'auth|csrf'), function() {
 
 Route::group(array('before' => 'csrf'), function() {
 	Route::post('admin', array('uses' => 'LoginController@doLogin'));
-	Route::post('booking', array('uses' => 'BookingController@booking'));
+	Route::post('cars', array('uses' => 'BookingController@cars'));
 });
+
+Route::get('booking/{carId}/{slug}', array('uses' => 'BookingController@booking'));
+Route::get('cars', array('uses' => 'BookingController@getCars'));
 
