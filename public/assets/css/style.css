@@ -87,6 +87,11 @@ header {
 	background-color: #f0f0f0;
 }
 
+.btnsub{
+	background-color: #e67e22 !important; 
+	border-color: #e67e22 !important;
+}
+
 .jumbotron {
 	background: url(/assets/img/bg.jpg) no-repeat;
 	background-size: cover;
@@ -128,8 +133,8 @@ header {
 }
 
 .contact {
-	color: #f5f5f5;
-	background-color: #34495e;
+	color: #fff;
+	background-color: #f39c12;
 }
 
 .about {

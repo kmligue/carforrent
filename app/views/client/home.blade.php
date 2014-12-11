@@ -291,7 +291,7 @@
 						<textarea class="form-control" id="message" name="message"></textarea>
 					</div>
 
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary btnsub">Submit</button>
 				</form>
 			</div>
 		</div>
