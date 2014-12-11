@@ -1,6 +1,7 @@
 @extends('client.layout')
 
 @section('content')
+
 	<div class="container" id="home">
 		<div class="header-menu" style="display: block">
 			<div class="row">
@@ -47,15 +48,15 @@
 				<div class="smpl-step-info text-center">CREATE REQUEST</div>
 			</div>
 
-			<div class="col-xs-3 smpl-step-step complete">           
+			<div class="col-xs-3 smpl-step-step active">           
 				<div class="text-center smpl-step-num">Step 2</div>
 				<div class="progress">
 					<div class="progress-bar"></div>
 				</div>
-				<a href="/cars" class="smpl-step-icon"><i class="fa fa-car" style="font-size: 55px; padding-left: 4px; padding-top: 5px; color: black;"></i></a>
+				<a class="smpl-step-icon"><i class="fa fa-car" style="font-size: 55px; padding-left: 4px; padding-top: 5px; color: black;"></i></a>
 				<div class="smpl-step-info text-center">CHOOSE CAR</div>
 			</div>
-			<div class="col-xs-3 smpl-step-step active">          
+			<div class="col-xs-3 smpl-step-step disabled">          
 				<div class="text-center smpl-step-num">Step 3</div>
 				<div class="progress">
 					<div class="progress-bar"></div>
@@ -249,68 +250,33 @@
 			<div class="well col-sm-9">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="row">
-							<div class="col-sm-4">
-								<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
-								<h5 class="text-center text-capitalize">{{ $car->name }}</h5>
-							</div>
-							<div class="col-sm-4">
-								<h4>Pick Up</h4>
-								<p class="text-capitalize">{{ $pickUpLoc->address }}</p>
-								<p>{{ Session::get('pick-up-date') }}</p>
-								<p>{{ Session::get('pick-up-time') }}</p>
-							</div>
-							<div class="col-sm-4">
-								<h4>Drop Off</h4>
-								@if(Session::has('diff-location'))
-									<p class="text-capitalize">{{ $returnLoc->address }}</p>
-									<p>{{ Session::get('return-date') }}</p>
-									<p>{{ Session::get('return-time') }}</p>
-								@else
-									<p class="text-capitalize">{{ $pickUpLoc->address }}</p>
-									<p>{{ Session::get('return-date') }}</p>
-									<p>{{ Session::get('return-time') }}</p>
-								@endif
-							</div>
-						</div>
+					   {{ $cars->count() }} results
 					</div>
 				</div>
-			</div>
-			<div class="well col-sm-9">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div class="row">
-							<h3>Details</h3>
-							<form action="" method="POST" role="form">
-								
-								<div class="form-group col-sm-6">
-									<label for="fname">First Name</label>
-									<input type="text" class="form-control" id="fname" placeholder="First Name">
+							@foreach($cars as $car)
+								<div class="row">
+									<div class="col-sm-4">
+							    		<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+										<h6 class="text-center">{{ $car->name }}</h6>
+									</div>
+									<div class="col-sm-4">
+										<h6>Transmission: {{ $car->transmission }}</h6>
+										<h6>Style: {{ $car->style }}</h6>
+										<h6>Seating: {{ $car->seating }}</h6>
+									</div>
+									<div class="col-sm-4 text-right">
+										<h3 style="margin-top: 0;"><span class="label label-default">Php {{ number_format($car->rate, 2) }} per day</span></h3>
+										<a href="/booking/{{ $car->id }}/{{ $car->slug }}" class="btn btn-sm flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book This Car</a>
+									</div>
 								</div>
-								<div class="form-group col-sm-6">
-									<label for="lname">Last Name</label>
-									<input type="text" class="form-control" id="lname" placeholder="Last Name">
-								</div>
-
-								<div class="form-group col-sm-6">
-									<label for="credit-card">Credit Card Number</label>
-									<input type="text" class="form-control" id="credit-card" placeholder="Credit Card Number">
-								</div>
-								<div class="form-group col-sm-3">
-									<label for="exp-date">Expiration Date</label>
-									<input type="text" class="form-control" id="exp-date" placeholder="Expiration Date">
-								</div>
-								<div class="form-group col-sm-3">
-									<label for="code">Code</label>
-									<input type="text" class="form-control" id="code" placeholder="Code">
-								</div>
-							
-								<button type="submit" class="btn btn-primary pull-right">Confirm Reservation</button>
-							</form>
-						</div>
+							@endforeach
 					</div>
 				</div>
 			</div>
 		</div>
+
 	</div>
+
 @stop
