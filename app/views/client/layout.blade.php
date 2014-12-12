@@ -20,7 +20,7 @@
 	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
 	</head>
-	<body>
+	<body data-spy="scroll" data-offset="0" data-target="#scrollspy">
 
 		@yield('content')
 		
@@ -38,11 +38,6 @@
 	    			}
 	    		});
 	    		$('#datepicker2').datepicker();
-
-	    		skrollr.init({
-	    			smoothScrolling: true,
-	    			forceHeight: false
-	    		});
 
 	    		$('a[href*=#]:not([href=#])').click(function() {
 	    			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {

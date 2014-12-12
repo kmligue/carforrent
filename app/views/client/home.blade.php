@@ -2,16 +2,18 @@
 
 @section('content')
 	
-	<div class="container" id="home">
+	<div id="home"></div>
+
+	<div class="container">
 		<div class="header-menu" style="display: block">
 			<div class="row">
 				<div class="col-sm-6 logo">
 					<img src="http://placehold.it/185x75">
 				</div>
-				<div class="col-sm-6 pad-top-10">
+				<div class="col-sm-6 pad-top-10" id="">
 					<ul class="nav nav-pills pull-right">
-						<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
-						<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
+						<li role="presentation"><a class="flat" href="#home">Home</a></li>
+						<li role="presentation"><a class="flat" href="#available-cars">Available Cars</a></li>
 						<li role="presentation"><a class="flat" href="#about">About Us</a></li>
 						<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
 					</ul>
@@ -25,10 +27,10 @@
 			<div class="col-sm-6 logo">
 				<img src="http://placehold.it/185x45">
 			</div>
-			<div class="col-sm-6" style="padding-top: 2px;">
+			<div class="col-sm-6" style="padding-top: 2px;" id="scrollspy">
 				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
-					<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
+					<li role="presentation"><a class="flat" href="#home">Home</a></li>
+					<li role="presentation"><a class="flat" href="#available-cars">Available Cars</a></li>
 					<li role="presentation"><a class="flat" href="#about">About Us</a></li>
 					<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
 				</ul>
@@ -231,10 +233,10 @@
 		
 	</header>
 
-	<section>
+	<div id="available-cars">
 		<div class="container">
 			<div>
-				<h3 id="available-cars">Available Cars</h3>
+				<h3>Available Cars</h3>
 			</div>
 			
 			@foreach($cars as $car)
@@ -260,16 +262,16 @@
 			@endforeach
 
 		</div>
-	</section>
+	</div>
 
-	<section class="about clearfix" id="about">
+	<div class="about clearfix" id="about">
 		<div class="col-sm-6 col-sm-offset-3 about">
 			<h2 class="text-center">About Us</h2>
 			<p class="text-justify">U-DriveBohol is your friendly travel partner to Bohol. We offer safe and comfortable tour and travel services to Bohol's top tourist destinations such as the Chocolate Hills. We  also provide car rental services for those looking to rent a car, van, or motorcycle anywhere in the province. Contact us now for your bookings and inquiries!</p>
 		</div>
-	</section>
+	</div>
 
-	<section class="contact clearfix" id="contact">
+	<div class="contact clearfix" id="contact">
 		<div class="col-sm-12 contact">
 			<h2 class="text-center">Contact Us</h2>
 
@@ -295,6 +297,6 @@
 				</form>
 			</div>
 		</div>
-	</section>
+	</div>
 
 @stop
