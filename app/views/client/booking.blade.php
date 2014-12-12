@@ -82,14 +82,6 @@
 					<div class="panel-body">
 						<div class="quick">
 							{{ Form::open(array('url' => '/cars')) }}
-									
-								@if($errors->count() > 0)
-									<div class="alert alert-danger">
-										@foreach($errors->all() as $error)
-											<div>{{ $error }}</div>
-										@endforeach
-									</div>
-								@endif
 
 								<div class="form-group">
 									<select class="form-control flat text-capitalize" name="location" placeholder="Enter Location">
@@ -281,32 +273,49 @@
 					<div class="panel-body">
 						<div class="row">
 							<h3>Details</h3>
-							<form action="" method="POST" role="form">
-								
-								<div class="form-group col-sm-6">
-									<label for="fname">First Name</label>
-									<input type="text" class="form-control" id="fname" placeholder="First Name">
+							
+							@if($errors->count() > 0)
+								<div class="alert alert-danger">
+									@foreach($errors->all() as $error)
+										<p>{{ $error }}</p>
+									@endforeach
 								</div>
-								<div class="form-group col-sm-6">
+							@endif
+
+							@if(Session::has('error'))
+								<div class="alert alert-danger">{{ Session::get('error') }}</div>
+							@endif
+
+							{{ Form::open(array('url' => 'reserve/' . $car->id . '/' . $car->slug)) }}
+								
+								<div class="form-group col-sm-4">
+									<label for="fname">First Name</label>
+									<input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+								</div>
+								<div class="form-group col-sm-4">
 									<label for="lname">Last Name</label>
-									<input type="text" class="form-control" id="lname" placeholder="Last Name">
+									<input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name">
+								</div>
+								<div class="form-group col-sm-4">
+									<label for="email">Email Address</label>
+									<input type="text" class="form-control" id="email" name="email" placeholder="Email Address">
 								</div>
 
 								<div class="form-group col-sm-6">
 									<label for="credit-card">Credit Card Number</label>
-									<input type="text" class="form-control" id="credit-card" placeholder="Credit Card Number">
+									<input type="text" class="form-control" id="credit-card" name="credit-card" placeholder="Credit Card Number">
 								</div>
 								<div class="form-group col-sm-3">
 									<label for="exp-date">Expiration Date</label>
-									<input type="text" class="form-control" id="exp-date" placeholder="Expiration Date">
+									<input type="text" class="form-control" id="exp-date" name="exp-date" placeholder="Expiration Date">
 								</div>
 								<div class="form-group col-sm-3">
 									<label for="code">Code</label>
-									<input type="text" class="form-control" id="code" placeholder="Code">
+									<input type="text" class="form-control" id="code" name="code" placeholder="Code">
 								</div>
 							
 								<button type="submit" class="btn btn-primary pull-right">Confirm Reservation</button>
-							</form>
+							{{ Form::close() }}
 						</div>
 					</div>
 				</div>

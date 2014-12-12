@@ -12,7 +12,7 @@
 				</div>
 				<div class="col-sm-6 pad-top-10" id="">
 					<ul class="nav nav-pills pull-right">
-						<li role="presentation"><a class="flat" href="#home">Home</a></li>
+						<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
 						<li role="presentation"><a class="flat" href="#available-cars">Available Cars</a></li>
 						<li role="presentation"><a class="flat" href="#about">About Us</a></li>
 						<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
