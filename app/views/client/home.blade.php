@@ -40,8 +40,8 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="tagline">
-					<h1>To travel is to take a journey</h1> <br>
-					<h1>into yourself</h1>
+					<h1>Rent a Car at U-Drive Bohol</h1> <br>
+					<h1>u-drivebohol.com</h1>
 				</div>
 				
 				<div class="col-sm-5 col-sm-offset-7 clearfix booking">

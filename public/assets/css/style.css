@@ -93,7 +93,7 @@ header {
 }
 
 .jumbotron {
-	background: url(/assets/img/bg.jpg) no-repeat;
+	background: url(/assets/img/bg.png) no-repeat;
 	background-size: cover;
 	height: 57em;
 	margin-bottom: 0;
@@ -128,13 +128,13 @@ header {
 }
 
 .about {
-	color: #454545;
-	background-color: #ecf0f1;
+	color: #fff;
+	background-color: #f39c12;
 }
 
 .contact {
-	color: #fff;
-	background-color: #f39c12;
+	color: #454545;
+	background-color: #ecf0f1;
 }
 
 .about {
