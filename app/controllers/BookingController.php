@@ -5,10 +5,92 @@ class BookingController extends BaseController {
 	public function adminBooking() {
 		$bookings = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
 							->orderBy('bookings.created_at', 'desc')
-							->paginate(5);
+							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
+							->paginate(10);
 		$locations = Location::all();
 
 		return View::make('admin.booking')->with('bookings', $bookings)->with('locations', $locations);
+	}
+
+	public function adminReserve($id) {
+		$booking = Booking::findOrFail($id);
+		$booking->status = 'Reserved';
+
+		if($booking->save()) {
+			return Redirect::back();
+		}
+		else {
+			return Redirect::back()->with('error', 'Something went wrong!');
+		}
+	}
+
+	public function adminDone($id) {
+		try {
+			$booking = Booking::findOrFail($id);
+			$booking->delete();
+
+			return Redirect::back();
+		} catch (Exception $e) {
+			return Redirect::back()->with('error', $e.getMessage());
+		}
+	}
+
+	public function showArchive() {
+		$bookings = Booking::onlyTrashed()
+					->paginate(10);
+
+		$locations = Location::all();
+
+		return View::make('admin.bookingArchive')->with('bookings', $bookings)->with('locations', $locations);
+	}
+
+	public function showPending() {
+		$bookings = Booking::where('status', '=', 'Pending')
+							->paginate(10);
+
+		$locations = Location::all();
+
+		return View::make('admin.booking')->with('bookings', $bookings)->with('locations', $locations);
+	}
+
+	public function showReserved() {
+		$bookings = Booking::where('status', '=', 'Reserved')
+							->paginate(10);
+
+		$locations = Location::all();
+
+		return View::make('admin.booking')->with('bookings', $bookings)->with('locations', $locations);
+	}
+
+	public function restoreBooking($id) {
+		try {
+			$booking = Booking::withTrashed()->where('id', '=', $id)->restore();
+
+			return Redirect::back()->with('success', 'Successfully restored!');
+		} catch (Exception $e) {
+			return Redirect::back()->with('error', $e->getMessage());
+		}
+	}
+
+	public function getReserveDetails($id) {
+		$booking = Booking::where('bookings.id', '=', $id)
+							->join('cars', 'cars.id', '=', 'bookings.car_id')
+							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
+							->get();
+
+		$locations = Location::all();
+
+		foreach ($locations as $key => $value) {
+			if($booking[0]['location_id'] == $value['id']) {
+				$booking[0]['pick_up_loc'] = $value['address'];
+			}
+
+			if($booking[0]['return_location'] == $value['id']) {
+				$booking[0]['return_loc'] = $value['address'];
+			}
+		}
+
+		return $booking;
 	}
 
 	public function cars() {
@@ -36,7 +118,16 @@ class BookingController extends BaseController {
 			return Redirect::to('/')->withErrors($validator)->withInput(Input::all());
 		}
 		else {
-			Session::flush();
+			Session::forget('location');
+			Session::forget('pick-up-date');
+			Session::forget('pick-up-time');
+			Session::forget('return-date');
+			Session::forget('return-time');
+
+			if(Input::has('diff-location')) {
+				Session::forget('return-loc');
+				Session::forget('diff-location');
+			}
 
 			Session::put('location', Input::get('location'));
 			Session::put('pick-up-date', Input::get('pick-up-date'));
@@ -156,7 +247,16 @@ class BookingController extends BaseController {
 			$booking->status = 'Pending';
 
 			if($booking->save()) {
-				// Session::flush();
+				Session::forget('location');
+				Session::forget('pick-up-date');
+				Session::forget('pick-up-time');
+				Session::forget('return-date');
+				Session::forget('return-time');
+
+				if(Input::has('diff-location')) {
+					Session::forget('return-loc');
+					Session::forget('diff-location');
+				}
 
 				$b = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
 							->where('bookings.id', '=', $booking->id)
