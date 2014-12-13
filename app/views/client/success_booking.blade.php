@@ -8,30 +8,6 @@
 				<div class="col-sm-6 logo">
 					<img src="http://placehold.it/185x75">
 				</div>
-				<div class="col-sm-6 pad-top-10">
-					<ul class="nav nav-pills pull-right">
-						<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
-						<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
-						<li role="presentation"><a class="flat" href="#about">About Us</a></li>
-						<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="header-menu-scroll col-xs-12 clearfix navbar-fixed-top" style="display: none; position: fixed; background-color: rgb(47, 47, 47); z-index: 999;">
-		<div class="row">
-			<div class="col-sm-6 logo">
-				<img src="http://placehold.it/185x45">
-			</div>
-			<div class="col-sm-6" style="padding-top: 2px;">
-				<ul class="nav nav-pills pull-right">
-					<li role="presentation" class="active"><a class="flat" href="#home">Home</a></li>
-					<li role="presentation"><a data-scroll class="flat" href="#available-cars">Available Cars</a></li>
-					<li role="presentation"><a class="flat" href="#about">About Us</a></li>
-					<li role="presentation"><a class="flat" href="#contact">Contact Us</a></li>
-				</ul>
 			</div>
 		</div>
 	</div>
@@ -89,38 +65,47 @@
 								<div class="col-sm-5">
 									<h4>Details</h4>
 									<div class="details">
-										<p><span>Name: </span>Kem kem</p>
-										<p><span>Email: </span>email@gmail.com</p>
-										<p><span>Credit Card No: </span>123123</p>
-										<p><span>Expiration Date: </span>2014/12/12</p>
-										<p><span>Code: </span>231</p>
+										<p><span>Name: </span>{{ $booking->fname }} {{ $booking->lname }}</p>
+										<p><span>Email: </span>{{ $booking->email }}</p>
+										<p><span>Credit Card No: </span>{{ $booking->credit_card_no }}</p>
+										<p><span>Expiration Date: </span>{{ $booking->cc_expire_date }}</p>
+										<p><span>Code: </span>{{ $booking->cc_code }}</p>
 									</div>
 								</div>
 								<div class="col-sm-7">
 									<div class="row">
 										<div class="col-sm-6">
 											<h4>Pick Up</h4>
-											<p>Ubujan District Tagbilaran City</p>
-											<p>2014/12/12</p>
-											<p>12:00:00</p>
+											@foreach($locations as $loc)
+												@if($loc->id == $booking->location_id)
+													<p class="text-capitalize">{{ $loc->address }}</p>
+												@endif
+											@endforeach
+											<p>{{ explode(' ', $booking->pick_up_date)[0] }}</p>
+											<p>{{ $booking->pick_up_time }}</p>
 										</div>
 										<div class="col-sm-6">
 											<h4>Drop Off</h4>
-											<p>Ubujan District Tagbilaran City</p>
-											<p>2014/12/12</p>
-											<p>12:00:00</p>
+											@foreach($locations as $loc)
+												@if($loc->id == $booking->return_location)
+													<p class="text-capitalize">{{ $loc->address }}</p>
+												@endif
+											@endforeach
+											<p>{{ explode(' ', $booking->return_date)[0] }}</p>
+											<p>{{ $booking->return_time }}</p>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-12">
 											<h4>Car</h4>
-											<img class="img-responsive" src="/assets/uploads/07-08_honda_element_sc-5482bb67ea931.jpg">
+											<h5 class="text-center text-capitalize">{{ $booking->name }}</h5>
+											<img class="img-responsive" src="/assets/uploads/{{ $booking->image }}">
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-sm-12 text-right">
 											<h4>Total Amount</h4>
-											<p><h5 style="color: #00f">Php 151.13</h5></p>
+											<p><h5 style="color: #00f">Php {{ number_format($booking->rate, 2) }}</h5></p>
 										</div>
 									</div>
 									<div class="row">

@@ -41,16 +41,14 @@ class BookingController extends BaseController {
 			}
 			$locations = Location::all();
 
-			$cars = Car::leftJoin('bookings', 'bookings.car_id', '=', 'cars.id')
-					->orWhereNotBetween('bookings.pick_up_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-					->orWhereNotBetween('bookings.return_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-					->orWhereNotBetween('bookings.pick_up_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-					->orWhereNotBetween('bookings.return_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-					->where('bookings.status', '=', 'reserved')
-					->select('cars.id as id', 'cars.name as name', 'cars.slug as slug', 'cars.transmission as transmission', 'cars.style as style', 'cars.seating as seating', 'cars.rate as rate', 'cars.image as image')
-					->get();
+			$pickUpDateFormat = new DateTime(Input::get('pick-up-date') . ' ' . Input::get('pick-up-time'));
+			$returnDateFormat = new DateTime(Input::get('return-date') . ' ' . Input::get('return-time'));
 
-			return View::make('client.choose_car')->with('cars', $cars)->with('locations', $locations)->with('inputs', Input::all());
+			$cars = Car::all();
+			$bookings = Booking::where('status', '=', 'Reserved')
+								->get();
+
+			return View::make('client.choose_car')->with('cars', $cars)->with('locations', $locations)->with('inputs', Input::all())->with('bookings', $bookings);
 		}
 	}
 
@@ -59,16 +57,23 @@ class BookingController extends BaseController {
 
 			$locations = Location::all();
 
-			$cars = Car::leftJoin('bookings', 'bookings.car_id', '=', 'cars.id')
-					->orWhereNotBetween('bookings.pick_up_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-					->orWhereNotBetween('bookings.return_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-					->orWhereNotBetween('bookings.pick_up_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-					->orWhereNotBetween('bookings.return_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-					->where('bookings.status', '=', 'reserved')
-					->select('cars.id as id', 'cars.name as name', 'cars.slug as slug', 'cars.transmission as transmission', 'cars.style as style', 'cars.seating as seating', 'cars.rate as rate', 'cars.image as image')
-					->get();
+			// $cars = Car::leftJoin('bookings', 'bookings.car_id', '=', 'cars.id')
+			// 		->orWhereNotBetween('bookings.pick_up_date', array(Input::get('pick-up-date'), Input::get('return-date')))
+			// 		->orWhereNotBetween('bookings.return_date', array(Input::get('pick-up-date'), Input::get('return-date')))
+			// 		->orWhereNotBetween('bookings.pick_up_time', array(Input::get('pick-up-time'), Input::get('return-time')))
+			// 		->orWhereNotBetween('bookings.return_time', array(Input::get('pick-up-time'), Input::get('return-time')))
+			// 		->where('bookings.status', '=', 'reserved')
+			// 		->select('cars.id as id', 'cars.name as name', 'cars.slug as slug', 'cars.transmission as transmission', 'cars.style as style', 'cars.seating as seating', 'cars.rate as rate', 'cars.image as image')
+			// 		->get();
 
-			return View::make('client.choose_car')->with('locations', $locations)->with('cars', $cars);
+			$pickUpDateFormat = new DateTime(Input::get('pick-up-date') . ' ' . Input::get('pick-up-time'));
+			$returnDateFormat = new DateTime(Input::get('return-date') . ' ' . Input::get('return-time'));
+
+			$cars = Car::all();
+			$bookings = Booking::where('status', '=', 'Reserved')
+								->get();
+
+			return View::make('client.choose_car')->with('locations', $locations)->with('cars', $cars)->with('bookings', $bookings);
 
 		}
 		else {
@@ -102,62 +107,70 @@ class BookingController extends BaseController {
 	}
 
 	public function reserve($carId, $slug) {
-		return View::make('client.success_booking')->with('carId', $carId)->with('slug', $slug);
-		// $rules = array(
-		// 	'fname' => 'required',
-		// 	'lname' => 'required',
-		// 	'email' => 'required|email',
-		// 	'credit-card' => 'required',
-		// 	'exp-date' => 'required',
-		// 	'code' => 'required'
-		// );
+		$rules = array(
+			'fname' => 'required',
+			'lname' => 'required',
+			'email' => 'required|email',
+			'credit-card' => 'required',
+			'exp-date' => 'required',
+			'code' => 'required'
+		);
 
-		// $messages = array(
-		// 	'fname.required' => 'First Name field is required.',
-		// 	'lname.required' => 'Last Name field is required.',
-		// 	'email.required' => 'Email Address field is required.',
-		// 	'email.email' => 'Invalid email address.',
-		// 	'credit-card.required' => 'Credit Card field is required.',
-		// 	'exp-date.required' => 'Expiration Date field is required.',
-		// 	'code.required' => 'Code field is required.'
-		// );
+		$messages = array(
+			'fname.required' => 'First Name field is required.',
+			'lname.required' => 'Last Name field is required.',
+			'email.required' => 'Email Address field is required.',
+			'email.email' => 'Invalid email address.',
+			'credit-card.required' => 'Credit Card field is required.',
+			'exp-date.required' => 'Expiration Date field is required.',
+			'code.required' => 'Code field is required.'
+		);
 
-		// $validator = Validator::make(Input::all(), $rules, $messages);
+		$validator = Validator::make(Input::all(), $rules, $messages);
 
-		// if($validator->fails()) {
-		// 	return Redirect::back()->withErrors($validator)->withInput(Input::all());
-		// }
-		// else {
-		// 	$booking = new Booking;
-		// 	$booking->car_id = $carId;
-		// 	$booking->fname = Input::get('fname');
-		// 	$booking->lname = Input::get('lname');
-		// 	$booking->credit_card_no = Input::get('credit-card');
-		// 	$booking->cc_expire_date = Input::get('exp-date');
-		// 	$booking->cc_code = Input::get('code');
-		// 	$booking->location_id = Session::get('location');
+		if($validator->fails()) {
+			return Redirect::back()->withErrors($validator)->withInput(Input::all());
+		}
+		else {
+			$booking = new Booking;
+			$booking->car_id = $carId;
+			$booking->fname = Input::get('fname');
+			$booking->lname = Input::get('lname');
+			$booking->email = Input::get('email');
+			$booking->credit_card_no = Input::get('credit-card');
+			$booking->cc_expire_date = Input::get('exp-date');
+			$booking->cc_code = Input::get('code');
+			$booking->location_id = Session::get('location');
 
-		// 	if(Session::has('diff-location')) {
-		// 		$booking->return_location = Session::get('return-loc');
-		// 	}
-		// 	else {
-		// 		$booking->return_location = Session::get('location');
-		// 	}
+			if(Session::has('diff-location')) {
+				$booking->return_location = Session::get('return-loc');
+			}
+			else {
+				$booking->return_location = Session::get('location');
+			}
 
-		// 	$booking->pick_up_date = new DateTime(Session::get('pick-up-date') . ' ' . Session::get('pick-up-time'));
-		// 	$booking->pick_up_time = Session::get('pick-up-time');
-		// 	$booking->return_date = new DateTime(Session::get('return-date') . ' ' . Session::get('return-time'));
-		// 	$booking->return_time = Session::get('return-time');
-		// 	$booking->status = 'Pending';
+			$booking->pick_up_date = new DateTime(Session::get('pick-up-date') . ' ' . Session::get('pick-up-time'));
+			$booking->pick_up_time = Session::get('pick-up-time');
+			$booking->return_date = new DateTime(Session::get('return-date') . ' ' . Session::get('return-time'));
+			$booking->return_time = Session::get('return-time');
+			$booking->status = 'Pending';
 
-		// 	if($booking->save()) {
-		// 		Session::flush();
-		// 		return 'Successfully reserved!';
-		// 	}
-		// 	else {
-		// 		return Redirect::back()->with('error', 'Something went wrong!');
-		// 	}
-		// }
+			if($booking->save()) {
+				// Session::flush();
+
+				$b = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
+							->where('bookings.id', '=', $booking->id)
+							->select('bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
+							->first();
+
+				$locations = Location::all();
+				
+				return View::make('client.success_booking')->with('booking', $b)->with('carId', $carId)->with('slug', $slug)->with('locations', $locations);
+			}
+			else {
+				return Redirect::back()->with('error', 'Something went wrong!');
+			}
+		}
 	}
 
 }

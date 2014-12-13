@@ -17,6 +17,11 @@ Route::group(array('before' => 'guest'), function() {
 	Route::get('admin', array('uses' => 'LoginController@showLogin'));
 });
 
+Route::group(array('before' => 'csrf'), function() {
+	Route::post('reserve/{carId}/{slug}', array('uses' => 'BookingController@reserve'));
+	Route::post('admin', array('uses' => 'LoginController@doLogin'));
+});
+
 Route::group(array('before' => 'auth'), function() {
 	Route::get('admin/dashboard', function() {
 		return View::make('admin.dashboard');
@@ -55,12 +60,7 @@ Route::group(array('before' => 'auth|csrf'), function() {
 	Route::put('admin/location/{id}/restore', array('uses' => 'LocationController@restoreLocation'));
 });
 
-Route::group(array('before' => 'csrf'), function() {
-	Route::post('admin', array('uses' => 'LoginController@doLogin'));
-	Route::post('cars', array('uses' => 'BookingController@cars'));
-	// Route::post('reserve/{carId}/{slug}', array('uses' => 'BookingController@reserve'));
-});
-Route::get('reserve/{carId}/{slug}', array('uses' => 'BookingController@reserve'));
+Route::post('cars', array('uses' => 'BookingController@cars'));
 Route::get('booking/{carId}/{slug}', array('uses' => 'BookingController@booking'));
 Route::get('cars', array('uses' => 'BookingController@getCars'));
 

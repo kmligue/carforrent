@@ -250,27 +250,43 @@
 			<div class="well col-sm-9">
 				<div class="panel panel-default">
 					<div class="panel-body">
-					   {{ $cars->count() }} results
+					   Cars
 					</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-body">
 							@foreach($cars as $car)
-								<div class="row">
-									<div class="col-sm-4">
-							    		<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
-										<h6 class="text-center">{{ $car->name }}</h6>
+
+								<?php $isBook = false; ?>
+
+								@foreach($bookings as $booking)
+									@if($car->id == $booking->car_id)
+										@if((strtotime(Session::get('pick-up-date') . ' ' . Session::get('pick-up-time')) < strtotime($booking->pick_up_date) || strtotime(Session::get('pick-up-date') . ' ' . Session::get('pick-up-time')) > strtotime($booking->return_date)) && (strtotime(Session::get('return-date') . ' ' . Session::get('return-time')) < strtotime($booking->pick_up_date) || strtotime(Session::get('return-date') . ' ' . Session::get('return-time')) > strtotime($booking->return_date)))
+											<?php $isBook = false; ?>
+										@else
+											<?php $isBook = true; ?>
+										@endif
+									@endif
+								@endforeach
+
+								@if($isBook == false)
+									<div class="row">
+										<div class="col-sm-4">
+								    		<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+											<h6 class="text-center">{{ $car->name }}</h6>
+										</div>
+										<div class="col-sm-4">
+											<h6>Transmission: {{ $car->transmission }}</h6>
+											<h6>Style: {{ $car->style }}</h6>
+											<h6>Seating: {{ $car->seating }}</h6>
+										</div>
+										<div class="col-sm-4 text-right">
+											<h3 style="margin-top: 0;"><span class="label label-default">Php {{ number_format($car->rate, 2) }} per day</span></h3>
+											<a href="/booking/{{ $car->id }}/{{ $car->slug }}" class="btn btn-sm flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book This Car</a>
+										</div>
 									</div>
-									<div class="col-sm-4">
-										<h6>Transmission: {{ $car->transmission }}</h6>
-										<h6>Style: {{ $car->style }}</h6>
-										<h6>Seating: {{ $car->seating }}</h6>
-									</div>
-									<div class="col-sm-4 text-right">
-										<h3 style="margin-top: 0;"><span class="label label-default">Php {{ number_format($car->rate, 2) }} per day</span></h3>
-										<a href="/booking/{{ $car->id }}/{{ $car->slug }}" class="btn btn-sm flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book This Car</a>
-									</div>
-								</div>
+								@endif
+
 							@endforeach
 					</div>
 				</div>
