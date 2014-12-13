@@ -41,9 +41,7 @@ Route::group(array('before' => 'auth'), function() {
 		return View::make('admin.locationAdd');
 	});
 
-	Route::get('admin/booking', function() {
-		return View::make('admin.booking');
-	});
+	Route::get('admin/booking', array('uses' => 'BookingController@adminBooking'));
 
 	Route::get('admin/logout', array('uses' => 'LoginController@doLogout'));
 });

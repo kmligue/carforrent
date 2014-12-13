@@ -2,6 +2,15 @@
 
 class BookingController extends BaseController {
 
+	public function adminBooking() {
+		$bookings = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
+							->orderBy('bookings.created_at', 'desc')
+							->paginate(5);
+		$locations = Location::all();
+
+		return View::make('admin.booking')->with('bookings', $bookings)->with('locations', $locations);
+	}
+
 	public function cars() {
 		$rules = array(
 			'location' => 'required',
@@ -56,15 +65,6 @@ class BookingController extends BaseController {
 		if(Session::has('location') && Session::has('pick-up-date') && Session::has('pick-up-time') && Session::has('return-date') && Session::has('return-time')) {
 
 			$locations = Location::all();
-
-			// $cars = Car::leftJoin('bookings', 'bookings.car_id', '=', 'cars.id')
-			// 		->orWhereNotBetween('bookings.pick_up_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-			// 		->orWhereNotBetween('bookings.return_date', array(Input::get('pick-up-date'), Input::get('return-date')))
-			// 		->orWhereNotBetween('bookings.pick_up_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-			// 		->orWhereNotBetween('bookings.return_time', array(Input::get('pick-up-time'), Input::get('return-time')))
-			// 		->where('bookings.status', '=', 'reserved')
-			// 		->select('cars.id as id', 'cars.name as name', 'cars.slug as slug', 'cars.transmission as transmission', 'cars.style as style', 'cars.seating as seating', 'cars.rate as rate', 'cars.image as image')
-			// 		->get();
 
 			$pickUpDateFormat = new DateTime(Input::get('pick-up-date') . ' ' . Input::get('pick-up-time'));
 			$returnDateFormat = new DateTime(Input::get('return-date') . ' ' . Input::get('return-time'));
