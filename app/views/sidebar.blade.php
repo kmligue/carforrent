@@ -5,6 +5,9 @@
               <a class="@if(Request::path() == 'admin/dashboard') active @endif" href="{{ URL::to('admin/dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
           </li>
           <li>
+              <a class="@if(Request::path() == 'admin/messages') active @endif" href="{{ URL::to('admin/messages') }}"><i class="fa fa-envelope fa-fw"></i> Messages <span class="badge"></span></a>
+          </li>
+          <li>
               <a class="@if(Request::path() == 'admin/car') active @endif" href="{{ URL::to('admin/car') }}"><i class="fa fa-car fa-fw"></i> Cars</a>
           </li>
           <li>

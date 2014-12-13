@@ -57,18 +57,20 @@
 							<div class="quick">
 								{{ Form::open(array('url' => '/cars')) }}
 									
-									@if($errors->count() > 0)
-										<div class="alert alert-danger">
-											@foreach($errors->all() as $error)
-												<div>{{ $error }}</div>
-											@endforeach
-										</div>
-									@endif
+									@if(!Session::has('mail'))
+										@if($errors->count() > 0)
+											<div class="alert alert-danger">
+												@foreach($errors->all() as $error)
+													<div>{{ $error }}</div>
+												@endforeach
+											</div>
+										@endif
 
-									@if(Session::has('error'))
-										<div class="alert alert-danger">
-											{{ Session.get('error') }}
-										</div>
+										@if(Session::has('error'))
+											<div class="alert alert-danger">
+												{{ Session.get('error') }}
+											</div>
+										@endif
 									@endif
 
 									<div class="form-group">
@@ -276,25 +278,42 @@
 			<h2 class="text-center">Contact Us</h2>
 
 			<div class="col-sm-6 col-sm-offset-3">
-				<form action="" method="POST" role="form">
+				{{ Form::open(array('url' => '/contact')) }}
+
+					@if(Session::has('mail'))
+						@if($errors->count() > 0)
+							<div class="alert alert-danger">
+								@foreach($errors->all() as $error)
+									<div>{{ $error }}</div>
+								@endforeach
+							</div>
+						@endif
+
+						@if(Session::has('error'))
+							<div class="alert alert-danger">
+								{{ Session.get('error') }}
+							</div>
+						@endif
+					@endif
 				
 					<div class="form-group">
 						<label for="name">Name</label>
-						<input type="text" class="form-control" id="name" name="name">
+						<input type="text" class="form-control" id="name" name="name" value="{{ Input::old('name') }}">
 					</div>
 
 					<div class="form-group">
 						<label for="email">Email</label>
-						<input type="text" class="form-control" id="email" name="email">
+						<input type="text" class="form-control" id="email" name="email" value="{{ Input::old('email') }}">
 					</div>
 
 					<div class="form-group">
 						<label for="message">Message</label>
-						<textarea class="form-control" id="message" name="message"></textarea>
+						<textarea class="form-control" id="message" name="message" rows="5">{{ Input::old('message') }}</textarea>
 					</div>
 
 					<button type="submit" class="btn btn-primary btnsub">Submit</button>
-				</form>
+				
+				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
