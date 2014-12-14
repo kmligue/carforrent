@@ -33,7 +33,7 @@ body {
 	font-family: Lucida Sans Demi;
 	font-size: 1.5em;
 	color: white;
-	background-color: #ed9419;
+	background-color: #2980b9;
 	border-radius: 0;
 	padding-left: 30px;
 	padding-right: 30px;
@@ -189,7 +189,7 @@ section .container h3 {
 	font-family: Lucida Sans Demi;
 	font-size: 1.3em;
 	color: white;
-	background-color: #ed9419;
+	background-color: #3498db;
 	padding: 0.5em;
 	left: 15px;
 }
