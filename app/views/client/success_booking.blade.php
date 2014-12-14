@@ -6,7 +6,7 @@
 		<div class="header-menu" style="display: block">
 			<div class="row">
 				<div class="col-sm-6 logo">
-					<img src="http://placehold.it/185x75">
+					<img src="/assets/img/logo.png">
 				</div>
 			</div>
 		</div>

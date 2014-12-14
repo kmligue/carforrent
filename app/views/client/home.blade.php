@@ -42,7 +42,7 @@
 		<div class="jumbotron">
 			<div class="container">
 				<div class="tagline">
-					<h1>Rent a Car at U-Drive Bohol</h1> <br>
+					<h1>Rent a Car at U-Drive </h1> <br>
 					<h1>u-drivebohol.com</h1>
 				</div>
 				

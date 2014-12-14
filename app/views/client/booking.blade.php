@@ -5,7 +5,7 @@
 		<div class="header-menu" style="display: block">
 			<div class="row">
 				<div class="col-sm-6 logo">
-					<img src="http://placehold.it/185x75">
+					<img src="/assets/img/logo.png">
 				</div>
 				<div class="col-sm-6 pad-top-10">
 					<ul class="nav nav-pills pull-right">
@@ -272,7 +272,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="row">
-							<h3>Details</h3>
+							<h3 style = "margin-left: 13px;">Details</h3>
 							
 							@if($errors->count() > 0)
 								<div class="alert alert-danger">
@@ -314,7 +314,7 @@
 									<input type="text" class="form-control" id="code" name="code" placeholder="Code">
 								</div>
 							
-								<button type="submit" class="btn btn-primary pull-right">Confirm Reservation</button>
+								<button type="submit" class="btn btn-primary pull-right" style = "margin-right: 14px;">Confirm Reservation</button>
 							{{ Form::close() }}
 						</div>
 					</div>
