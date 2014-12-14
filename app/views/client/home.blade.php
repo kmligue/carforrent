@@ -236,7 +236,7 @@
 	<div id="available-cars">
 		<div class="container">
 			<div>
-				<h3>Available Cars</h3>
+				<h2 style = "font-weight: bolder; color:#454545;">Available Cars</h2>
 			</div>
 			
 			@foreach($cars as $car)
