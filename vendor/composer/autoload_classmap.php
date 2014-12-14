@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'BaseController' => $baseDir . '/app/controllers/BaseController.php',
+    'Booking' => $baseDir . '/app/models/Booking.php',
     'BookingController' => $baseDir . '/app/controllers/BookingController.php',
     'Boris\\Boris' => $vendorDir . '/d11wtq/boris/lib/Boris/Boris.php',
     'Boris\\CLIOptionsHandler' => $vendorDir . '/d11wtq/boris/lib/Boris/CLIOptionsHandler.php',
@@ -35,6 +36,7 @@ return array(
     'CreateBookingsTable' => $baseDir . '/app/database/migrations/2014_12_10_124507_create_bookings_table.php',
     'CreateCarsTable' => $baseDir . '/app/database/migrations/2014_12_04_140427_create_cars_table.php',
     'CreateLocationTable' => $baseDir . '/app/database/migrations/2014_12_06_112004_create_location_table.php',
+    'CreateMessagesTable' => $baseDir . '/app/database/migrations/2014_12_13_142001_create_messages_table.php',
     'CreateUsersTable' => $baseDir . '/app/database/migrations/2014_12_04_010414_create_users_table.php',
     'Crypt_AES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
     'Crypt_Base' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Base.php',
@@ -48,6 +50,7 @@ return array(
     'Crypt_TripleDES' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/TripleDES.php',
     'Crypt_Twofish' => $vendorDir . '/phpseclib/phpseclib/phpseclib/Crypt/Twofish.php',
     'DatabaseSeeder' => $baseDir . '/app/database/seeds/DatabaseSeeder.php',
+    'EmailController' => $baseDir . '/app/controllers/EmailController.php',
     'File_ANSI' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ANSI.php',
     'File_ASN1' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_ASN1_Element' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',

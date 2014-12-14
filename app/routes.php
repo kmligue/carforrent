@@ -20,6 +20,7 @@ Route::group(array('before' => 'guest'), function() {
 Route::group(array('before' => 'csrf'), function() {
 	Route::post('reserve/{carId}/{slug}', array('uses' => 'BookingController@reserve'));
 	Route::post('admin', array('uses' => 'LoginController@doLogin'));
+	Route::post('contact', array('uses' => 'EmailController@contact'));
 });
 
 Route::group(array('before' => 'auth'), function() {
@@ -41,9 +42,18 @@ Route::group(array('before' => 'auth'), function() {
 		return View::make('admin.locationAdd');
 	});
 
-	Route::get('admin/booking', function() {
-		return View::make('admin.booking');
-	});
+	Route::get('admin/booking/getReserveDetails/{id}', array('uses' => 'BookingController@getReserveDetails'));
+	Route::get('admin/booking/reserve/{id}', array('uses' => 'BookingController@adminReserve'));
+	Route::get('admin/booking/done/{id}', array('uses' => 'BookingController@adminDone'));
+	Route::get('admin/booking/restore/{id}', array('uses' => 'BookingController@restoreBooking'));
+	Route::get('admin/booking/archive', array('uses' => 'BookingController@showArchive'));
+	Route::get('admin/booking/pending', array('uses' => 'BookingController@showPending'));
+	Route::get('admin/booking/reserved', array('uses' => 'BookingController@showReserved'));
+	Route::get('admin/booking', array('uses' => 'BookingController@adminBooking'));
+
+	Route::get('admin/messages', array('uses' => 'EmailController@messages'));
+	Route::get('admin/messages/{id}', array('uses' => 'EmailController@getMessage'));
+	Route::get('admin/messages/send/{id}', array('uses' => 'EmailController@sendForm'));
 
 	Route::get('admin/logout', array('uses' => 'LoginController@doLogout'));
 });
