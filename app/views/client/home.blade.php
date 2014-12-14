@@ -8,7 +8,7 @@
 		<div class="header-menu" style="display: block">
 			<div class="row">
 				<div class="col-sm-6 logo">
-					<img src="http://placehold.it/185x75">
+					<img src="/assets/img/logo.png">
 				</div>
 				<div class="col-sm-6 pad-top-10" id="">
 					<ul class="nav nav-pills pull-right">
@@ -222,7 +222,7 @@
 										</div>
 									</div>
 								
-									<button type="submit" class="btn btn-small flat pull-right" style="margin-top: 10px; background-color: #ed9419; color: white">Book Now</button>
+									<button type="submit" class="btn btn-small flat pull-right" style="margin-top: 10px; background-color: #67809F; color: white">Book Now</button>
 								{{ Form::close() }}
 							</div>
 							<div class="manage"></div>

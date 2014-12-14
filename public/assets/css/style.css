@@ -84,7 +84,7 @@ select.form-control {
 }
 
 .header-menu-scroll div ul li a:hover {
-	background-color: #ed9419;
+	background-color: #67809F;
 }
 
 header {
@@ -133,7 +133,7 @@ header {
 
 .about {
 	color: #fff;
-	background-color: #f39c12;
+	background-color: #67809F;
 }
 
 .contact {
@@ -248,7 +248,7 @@ section .container h3 {
 .booking .panel .panel-heading .nav li.active,
 .booking .panel .panel-heading .nav li.active a,
 .booking .panel .panel-heading .nav li a:hover {
-	background-color: #ed9419;
+	background-color: #67809F;
 	color: white;
 }
 
@@ -262,7 +262,7 @@ section .container h3 {
 .nav-pills>li.active>a:hover, 
 .nav-pills>li.active>a:focus {
 	font-family: Lucida Sans Demi;
-	background-color: #ed9419;
+	background-color: #34495E;
 }
 
 textarea {
