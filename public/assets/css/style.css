@@ -91,14 +91,12 @@ header {
 	background-color: #f0f0f0;
 }
 
-.btnsub{
-	background-color: #e67e22 !important; 
-	border-color: #e67e22 !important;
-}
+
 
 .jumbotron {
 	background: url(/assets/img/bg.png) no-repeat;
 	background-size: cover;
+	background-position: 20% 115%;
 	height: 57em;
 	margin-bottom: 0;
 }
