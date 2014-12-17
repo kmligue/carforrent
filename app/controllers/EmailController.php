@@ -43,6 +43,8 @@ class EmailController extends BaseController {
 
 	public function getMessage($id) {
 		$message = Message::findOrFail($id);
+		$message->status = 1;
+		$message->save();
 
 		return $message;
 	}

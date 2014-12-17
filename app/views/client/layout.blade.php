@@ -11,6 +11,7 @@
 	    {{ HTML::style('/assets/jquery-ui-1.11.2.custom/jquery-ui.min.css') }}
 	    {{ HTML::style('/assets/font-awesome-4.1.0/css/font-awesome.min.css') }}
 	    {{ HTML::style('/assets/css/animate.css') }}
+	    {{ HTML::style('/assets/css/lightbox.css') }}
 	    {{ HTML::style('/assets/css/style.css') }}
 
 	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,6 +29,7 @@
 	    {{ HTML::script('/assets/js/bootstrap.min.js') }}
 	    {{ HTML::script('/assets/jquery-ui-1.11.2.custom/jquery-ui.min.js') }}
 	    {{ HTML::script('/assets/js/skrollr.min.js') }}
+	    {{ HTML::script('/assets/js/lightbox.min.js') }}
 
 	    <script>
 	    	$(function() {
@@ -78,6 +80,8 @@
 						$('select[name="return-loc"]').css('display', 'none');
 					}
 				});
+
+				@yield('script')
 	    	});
 	    </script>
 	</body>

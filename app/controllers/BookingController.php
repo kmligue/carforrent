@@ -260,7 +260,7 @@ class BookingController extends BaseController {
 
 				$b = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
 							->where('bookings.id', '=', $booking->id)
-							->select('bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
+							->select('bookings.fname as fname', 'bookings.car_id', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
 							->first();
 
 				$locations = Location::all();
@@ -271,6 +271,16 @@ class BookingController extends BaseController {
 				return Redirect::back()->with('error', 'Something went wrong!');
 			}
 		}
+	}
+
+	public function printPage($id) {
+		$booking = Booking::where('bookings.id', '=', $id)
+						->join('cars', 'cars.id', '=', 'bookings.car_id')
+						->get();
+
+		$locations = Location::all();
+
+		return View::make('admin.bookingPrintPage')->with('booking', $booking)->with('locations', $locations);
 	}
 
 }

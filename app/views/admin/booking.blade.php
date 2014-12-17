@@ -74,7 +74,7 @@
 								@else
 									<a href="#" class="btn btn-sm btn-info" id="{{ $booking->id }}" title="Reserve" style="margin-bottom: 5px;" data-toggle="modal" data-target="#reserve"><i class="fa fa-lock" id="{{ $booking->id }}" title="Reserve" style="font-size: 17px;"></i></a>
 								@endif
-								<a href="#" class="btn btn-sm btn-success" id="{{ $booking->id }}" title="Send Message"><i class="fa fa-send" id="{{ $booking->id }}" title="Send Message"></i></a>
+								<a href="/admin/booking/print/{{ $booking->id }}" target="_blank" class="btn btn-sm btn-success" id="{{ $booking->id }}" title="Print"><i class="fa fa-print" id="{{ $booking->id }}" title="Print"></i></a>
 							</td>
 						</tr>
 					@endforeach

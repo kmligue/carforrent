@@ -110,8 +110,8 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-12 text-right">
-											<a href="#" class="btn btn-sm flat" style="margin-top: 10px; background-color: #ed9419; color: white">Print Order Details</a>
-											<a href="#" class="btn btn-sm flat" style="margin-top: 10px; background-color: #ed9419; color: white">Show Terms and Conditions</a>
+											<a href="/booking/print/{{ $booking->car_id }}" class="btn btn-sm flat print-details" style="margin-top: 10px; background-color: #ed9419; color: white">Print Order Details</a>
+											<a href="#" class="btn btn-sm flat terms-condition" style="margin-top: 10px; background-color: #ed9419; color: white">Show Terms and Conditions</a>
 										</div>
 									</div>
 								</div>
@@ -124,4 +124,25 @@
 
 	</div>
 
+@stop
+
+@section('script')
+	$('.terms-condition').on('click', function(evt) {
+		evt.preventDefault();
+
+		var WinPrint = window.open('','','left=150,top=100,width=750,height=400,location=no,menubar=yes,status=no,scrollbars=yes,resizable=yes,toolbar=yes'); 
+		WinPrint.document.write('<html>'); 
+		WinPrint.document.write('<head>'); 
+		WinPrint.document.write('<title>Reservation</title>'); 
+		WinPrint.document.write('<body>'); 
+		WinPrint.document.write('<div>'); 
+		WinPrint.document.write('Terms And Condition'); 
+		WinPrint.document.write('</div>'); 
+		WinPrint.document.write('</body>'); 
+		WinPrint.document.write('</head>'); 
+		WinPrint.document.write('</html>'); 
+		WinPrint.document.close(); 
+		WinPrint.focus(); 
+		return false; 
+	});
 @stop

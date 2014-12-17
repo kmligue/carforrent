@@ -25,7 +25,7 @@
 	<div class="header-menu-scroll col-xs-12 clearfix navbar-fixed-top" style="display: none; position: fixed; background-color: rgb(47, 47, 47); z-index: 999;">
 		<div class="row">
 			<div class="col-sm-6 logo">
-				<img src="http://placehold.it/185x45">
+				<img src="/assets/img/logo.png" style="with: 185px; height: 45px;">
 			</div>
 			<div class="col-sm-6" style="padding-top: 2px;" id="scrollspy">
 				<ul class="nav nav-pills pull-right">
@@ -247,15 +247,14 @@
 					<div class="panel-body">
 						<p class="price">Php {{ number_format($car->rate, 2) }} per day</p>
 						<div class="pad-lr-25">
-							<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+							<a href="/assets/uploads/{{ $car->image }}" data-lightbox="images">
+								<img class="img-responsive" src="/assets/uploads/{{ $car->image }}">
+							</a>
 							<p class="car-name text-center text-capitalize">{{ $car->name }}</p>
 							<div class="car-details">
 								<p class="text-capitalize">Style: {{ $car->style }}</p>
 								<p>Seating Capacity: {{ $car->seating }}</p>
 								<p class="text-capitalize">Transmission: {{ $car->transmission }}</p>
-								<div class="text-center">
-									<button type="button" class="btn btn-book">Book Now</button>
-								</div>
 							</div>
 						</div>
 					</div>

@@ -11,7 +11,6 @@
 
     <div class="btn-group pull-right filter clearfix" role="group">
     	<a class="btn btn-default @if(Request::path() == 'admin/messages') active @endif" href="/admin/messages">All</a>
-    	<a class="btn btn-default @if(Request::path() == 'admin/messages/archive') active @endif" href="/admin/messages/archive">Archive</a>
     </div>
 
     @if(Session::has('error'))
@@ -39,8 +38,13 @@
 				<tbody>
 					@foreach($messages as $msg)
 						<tr>
-							<td class="text-capitalize col-md-2">{{ $msg->name }}</td>
-							<td class="col-md-2">{{ $msg->email }}</td>
+							@if($msg->status == 0)
+								<td class="text-capitalize col-md-2" style="color: red;">{{ $msg->name }}</td>
+								<td class="col-md-2" style="color: red;">{{ $msg->email }}</td>
+							@else
+								<td class="text-capitalize col-md-2">{{ $msg->name }}</td>
+								<td class="col-md-2">{{ $msg->email }}</td>
+							@endif
 							<td>
 								<a href="#" class="btn btn-info btn-sm" id="{{ $msg->id }}" title="View Message" data-toggle="modal" data-target="#view-message"><i class="fa fa-search" id="{{ $msg->id }}" title="View Message"></i></a>
 							</td>
