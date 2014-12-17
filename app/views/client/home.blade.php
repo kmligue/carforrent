@@ -25,7 +25,7 @@
 	<div class="header-menu-scroll col-xs-12 clearfix navbar-fixed-top" style="display: none; position: fixed; background-color: rgb(47, 47, 47); z-index: 999;">
 		<div class="row">
 			<div class="col-sm-6 logo">
-				<img src="/assets/img/logo.png" style="with: 185px; height: 45px;">
+				<img src="/assets/img/minilogo.png" style="with: 185px; height: 45px;">
 			</div>
 			<div class="col-sm-6" style="padding-top: 2px;" id="scrollspy">
 				<ul class="nav nav-pills pull-right">

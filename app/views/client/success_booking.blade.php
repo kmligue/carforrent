@@ -6,7 +6,7 @@
 		<div class="header-menu" style="display: block">
 			<div class="row">
 				<div class="col-sm-6 logo">
-					<img src="/assets/img/logo.png">
+					<img src="/assets/img/minilogo.png" style="with: 185px; height: 45px;">
 				</div>
 			</div>
 		</div>

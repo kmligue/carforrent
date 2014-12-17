@@ -31,8 +31,8 @@
 				<thead>
 					<tr>
 						<th>Name</th>
-						<th>Email</th>
-						<th>Action</th>
+						<th style = "width: 78%;">Email</th>
+						<th class = "text-center">Action</th>
 					</tr>
 				</thead>
 				<tbody>
