@@ -5,7 +5,10 @@
 		<meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>U-DriveBohol</title>
+	    <meta name="description" content="Looking for Car for your travel needs in Bohol Philippines? We offer a hassle free and a wide range of clean and new vehicles.">
+	    <meta name="keywords" content="bohol rent a car,rent a car bohol,rent a car in bohol,bohol car rental,bohol tours,bohol day tours,bohol travel and tours,bohol countryside tour,bohol transporation, bohol package, selfdrive car rental">
+	    <title>U-DriveBohol - Bohol Online Car Rental</title>
+	    <link rel="SHORTCUT ICON" href="/assets/img/logo.ico" type="image/x-icon">
 
 	    {{ HTML::style('/assets/css/bootstrap.min.css') }}
 	    {{ HTML::style('/assets/jquery-ui-1.11.2.custom/jquery-ui.min.css') }}
