@@ -22,7 +22,7 @@
 	<div class="header-menu-scroll col-xs-12 clearfix navbar-fixed-top" style="display: none; position: fixed; background-color: rgb(47, 47, 47); z-index: 999;">
 		<div class="row">
 			<div class="col-sm-6 logo">
-				<img src="http://placehold.it/185x45">
+				<img src="/assets/img/minilogo.png" style="with: 185px; height: 45px;">
 			</div>
 			<div class="col-sm-6" style="padding-top: 2px;">
 				<ul class="nav nav-pills pull-right">
