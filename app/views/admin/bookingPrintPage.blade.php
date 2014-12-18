@@ -44,7 +44,7 @@
 				@endforeach
 				<h4>Return Date/Time: <span style="font-size: 16px;">{{ $item->return_date }}</span></h4>
 			
-				<div>
+				<div class="text-capitalize">
 					<img src="/assets/uploads/{{ $item->image }}" style="width: 300px; height: 200px;">
 					<h2>{{ $item->name }}</h2>
 				</div>

@@ -19,7 +19,9 @@
                   <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
               </a>
               <ul class="dropdown-menu dropdown-user">
-                  <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                  <li><a href="{{ URL::to('admin/create/user') }}"><i class="fa fa-user fa-fw"></i> Create Account</a>
+                  </li>
+                  <li><a href="{{ URL::to('admin/change/pass') }}"><i class="fa fa-lock fa-fw"></i> Change Password</a>
                   </li>
                   <li class="divider"></li>
                   <li><a href="{{ URL::to('admin/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

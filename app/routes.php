@@ -56,6 +56,9 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('admin/messages/{id}', array('uses' => 'EmailController@getMessage'));
 	Route::get('admin/messages/send/{id}', array('uses' => 'EmailController@sendForm'));
 
+	Route::get('admin/create/user', array('uses' => 'AccountController@showCreateUser'));
+	Route::get('admin/change/pass', array('uses' => 'AccountController@showChangePass'));
+
 	Route::get('admin/logout', array('uses' => 'LoginController@doLogout'));
 });
 
@@ -69,6 +72,9 @@ Route::group(array('before' => 'auth|csrf'), function() {
 	Route::post('admin/location/{id}/edit', array('uses' => 'LocationController@editLocation'));
 	Route::delete('admin/location/{id}/archive', array('uses' => 'LocationController@archiveLocation'));
 	Route::put('admin/location/{id}/restore', array('uses' => 'LocationController@restoreLocation'));
+
+	Route::post('admin/create/user', array('uses' => 'AccountController@createUser'));
+	Route::post('admin/change/pass', array('uses' => 'AccountController@changePass'));
 });
 
 Route::get('booking/print/{id}', array('uses' => 'BookingController@printPage'));
