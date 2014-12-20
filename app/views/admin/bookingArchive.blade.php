@@ -67,7 +67,7 @@
 								@endforeach	
 							</td>
 							<td class="text-capitalize col-md-2">{{ $booking->return_date }}</td>
-							<td class="text-capitalize col-md-2">{{ $booking->credit_card_no }} - {{ $booking->cc_expire_date }} - {{ $booking->cc_code }}</td>
+							<td class="text-capitalize col-md-2">{{ $booking->credit_card_no }} - {{ $booking->cc_expire_date }}</td>
 							<td class="text-capitalize col-md-6">
 								<a href="/admin/booking/restore/{{ $booking->id }}" class="btn btn-sm btn-warning" id="{{ $booking->id }}" title="Restore"><i class="glyphicon glyphicon-retweet" id="{{ $booking->id }}" title="Restore"></i></a>
 							</td>

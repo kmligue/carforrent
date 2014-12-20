@@ -54,7 +54,8 @@
 			<div class="well col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
-					   Summary
+						<div class="alert alert-success">Thank you for choosing U-Drive Bohol. Your reservation is already sent and now pending. Just wait for a confirmation on your email.</div>
+					   	Summary
 					</div>
 				</div>
 				
@@ -69,7 +70,6 @@
 										<p><span>Email: </span>{{ $booking->email }}</p>
 										<p><span>Credit Card No: </span>{{ $booking->credit_card_no }}</p>
 										<p><span>Expiration Date: </span>{{ $booking->cc_expire_date }}</p>
-										<p><span>Code: </span>{{ $booking->cc_code }}</p>
 									</div>
 								</div>
 								<div class="col-sm-7">
@@ -110,7 +110,7 @@
 									</div>
 									<div class="row">
 										<div class="col-sm-12 text-right">
-											<a href="/booking/print/{{ $booking->car_id }}" class="btn btn-sm flat print-details" style="margin-top: 10px; background-color: #ed9419; color: white">Print Order Details</a>
+											<a href="/booking/print/{{ $booking->id }}/{{ $booking->token }}" target="_blank" class="btn btn-sm flat print-details" style="margin-top: 10px; background-color: #ed9419; color: white">Print Order Details</a>
 											<a href="#" class="btn btn-sm flat terms-condition" style="margin-top: 10px; background-color: #ed9419; color: white">Show Terms and Conditions</a>
 										</div>
 									</div>

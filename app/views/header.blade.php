@@ -9,7 +9,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ URL::to('admin') }}">U-DriveBohol</a>
+          <a class="navbar-brand" href="{{ URL::to('admin') }}"><img src="/assets/img/logo.png" style="with: 185px; height: 40px;"></a>
       </div>
       <!-- /.navbar-header -->
 

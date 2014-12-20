@@ -2,6 +2,10 @@
 
 class EmailController extends BaseController {
 
+	public function showEmail() {
+		return View::make('admin.email');
+	}
+
 	public function contact() {
 		$rules = array(
 			'name' => 'required',
@@ -49,8 +53,33 @@ class EmailController extends BaseController {
 		return $message;
 	}
 
-	public function sendForm($id) {
+	public function sendMessage($id) {
+		$m = Message::findOrFail($id);
 
+		try {
+
+			$config = array(
+				'driver' => 'smtp',
+				'host' => 'smtp.gmail.com',
+				'port' => 587,
+				'from' => array('address' => 'kelvinodesk@gmail.com', 'name' => 'Kelvin Odesk'),
+				'encryption' => 'tls',
+				'username' => 'kelvinodesk@gmail.com',
+				'password' => 'nivleknitram123',
+				'sendmail' => '/usr/sbin/sendmail -bs',
+				'pretend' => false,
+			);
+
+			Config::set('mail', $config);
+			
+			Mail::send('emails.message', array('name' => $m->name, 'msg' => Input::get('message')), function($message) use($m) {
+				$message->to($m->email, $m->name)->subject('Welcome to U-Drive Bohol!');
+			});
+
+			return Redirect::back()->with('success', 'Successfully sent!');
+		} catch (Exception $e) {
+			return Redirect::back()->with('error', $e->getMessage());
+		}
 	}
 
 }

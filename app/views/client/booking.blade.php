@@ -92,7 +92,7 @@
 									</select>
 								</div>
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>
 										<input type="checkbox" name="diff-location" {{ Session::has('diff-location') ? 'checked' : '' }}> <span class="text-muted">Returning to Different location</span>
 									</label>
@@ -102,7 +102,7 @@
 											<option class="text-capitalize" value="{{ $location->id }}" {{ Session::get('return-loc') == $location->id ? 'selected' : '' }}>{{ $location->address }}</option>
 										@endforeach
 									</select>
-								</div>
+								</div> -->
 
 								<div class="form-group">
 									<div class="col-sm-7 pad-5" style="padding-left: 0">
@@ -305,13 +305,9 @@
 									<label for="credit-card">Credit Card Number</label>
 									<input type="text" class="form-control" id="credit-card" name="credit-card" placeholder="Credit Card Number">
 								</div>
-								<div class="form-group col-sm-3">
+								<div class="form-group col-sm-6">
 									<label for="exp-date">Expiration Date</label>
 									<input type="text" class="form-control" id="exp-date" name="exp-date" placeholder="Expiration Date">
-								</div>
-								<div class="form-group col-sm-3">
-									<label for="code">Code</label>
-									<input type="text" class="form-control" id="code" name="code" placeholder="Code">
 								</div>
 							
 								<button type="submit" class="btn btn-primary pull-right" style = "margin-right: 14px;">Confirm Reservation</button>

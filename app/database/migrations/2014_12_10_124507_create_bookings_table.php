@@ -24,6 +24,7 @@ class CreateBookingsTable extends Migration {
 			$table->integer('cc_code');
 			$table->integer('location_id');
 			$table->integer('return_location')->nullable();
+			$table->string('token_string');
 			$table->timestamp('pick_up_date');
 			$table->time('pick_up_time');
 			$table->timestamp('return_date');

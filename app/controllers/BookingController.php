@@ -5,7 +5,7 @@ class BookingController extends BaseController {
 	public function adminBooking() {
 		$bookings = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
 							->orderBy('bookings.created_at', 'desc')
-							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
+							->select('bookings.id as id', 'bookings.token_string as token', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
 							->paginate(10);
 		$locations = Location::all();
 
@@ -17,6 +17,25 @@ class BookingController extends BaseController {
 		$booking->status = 'Reserved';
 
 		if($booking->save()) {
+
+			$config = array(
+				'driver' => 'smtp',
+				'host' => 'smtp.gmail.com',
+				'port' => 587,
+				'from' => array('address' => 'kelvinodesk@gmail.com', 'name' => 'Kelvin Odesk'),
+				'encryption' => 'tls',
+				'username' => 'kelvinodesk@gmail.com',
+				'password' => 'nivleknitram123',
+				'sendmail' => '/usr/sbin/sendmail -bs',
+				'pretend' => false,
+			);
+
+			Config::set('mail', $config);
+
+			Mail::send('emails.email', array('id' => $id, 'token' => $booking->token_string, 'name' => $booking->fname . ' ' . $booking->lname), function($message) use($booking) {
+				$message->to($booking->email, $booking->fname . ' ' . $booking->lname)->subject('Welcome to U-Drive Bohol!');
+			});
+
 			return Redirect::back();
 		}
 		else {
@@ -75,7 +94,7 @@ class BookingController extends BaseController {
 	public function getReserveDetails($id) {
 		$booking = Booking::where('bookings.id', '=', $id)
 							->join('cars', 'cars.id', '=', 'bookings.car_id')
-							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
+							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.status as status', 'cars.name as name')
 							->get();
 
 		$locations = Location::all();
@@ -203,8 +222,7 @@ class BookingController extends BaseController {
 			'lname' => 'required',
 			'email' => 'required|email',
 			'credit-card' => 'required',
-			'exp-date' => 'required',
-			'code' => 'required'
+			'exp-date' => 'required'
 		);
 
 		$messages = array(
@@ -213,8 +231,7 @@ class BookingController extends BaseController {
 			'email.required' => 'Email Address field is required.',
 			'email.email' => 'Invalid email address.',
 			'credit-card.required' => 'Credit Card field is required.',
-			'exp-date.required' => 'Expiration Date field is required.',
-			'code.required' => 'Code field is required.'
+			'exp-date.required' => 'Expiration Date field is required.'
 		);
 
 		$validator = Validator::make(Input::all(), $rules, $messages);
@@ -230,8 +247,8 @@ class BookingController extends BaseController {
 			$booking->email = Input::get('email');
 			$booking->credit_card_no = Input::get('credit-card');
 			$booking->cc_expire_date = Input::get('exp-date');
-			$booking->cc_code = Input::get('code');
 			$booking->location_id = Session::get('location');
+			$booking->token_string = str_random(60);
 
 			if(Session::has('diff-location')) {
 				$booking->return_location = Session::get('return-loc');
@@ -260,7 +277,7 @@ class BookingController extends BaseController {
 
 				$b = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
 							->where('bookings.id', '=', $booking->id)
-							->select('bookings.fname as fname', 'bookings.car_id', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.cc_code as cc_code', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
+							->select('bookings.id as id', 'bookings.fname as fname', 'bookings.car_id', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.token_string as token', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
 							->first();
 
 				$locations = Location::all();
@@ -273,11 +290,13 @@ class BookingController extends BaseController {
 		}
 	}
 
-	public function printPage($id) {
-		$booking = Booking::where('bookings.id', '=', $id)
-						->join('cars', 'cars.id', '=', 'bookings.car_id')
+	public function printPage($id, $token) {
+		$booking = Booking::join('cars', 'cars.id', '=', 'bookings.car_id')
+						->where('bookings.id', '=', $id)
+						->where('bookings.token_string', '=', $token)
+						->select('bookings.id as id', 'bookings.fname as fname', 'bookings.car_id', 'bookings.lname as lname', 'bookings.email as email', 'bookings.credit_card_no as credit_card_no', 'bookings.cc_expire_date as cc_expire_date', 'bookings.pick_up_date as pick_up_date', 'bookings.pick_up_time as pick_up_time', 'bookings.return_date as return_date', 'bookings.return_time as return_time', 'bookings.location_id as location_id', 'bookings.return_location as return_location', 'bookings.token_string as token', 'cars.name as name', 'cars.image as image', 'cars.rate as rate')
 						->get();
-
+		
 		$locations = Location::all();
 
 		return View::make('admin.bookingPrintPage')->with('booking', $booking)->with('locations', $locations);

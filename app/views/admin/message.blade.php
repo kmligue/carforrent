@@ -65,13 +65,15 @@
     				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     				<h4 class="modal-title">Message</h4>
     			</div>
+    			{{ Form::open(array('url' => '/admin/message/id')) }}
     			<div class="modal-body view-msg">
     				Message here...
     			</div>
     			<div class="modal-footer">
     				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    				<a href="#" class="btn btn-primary reply-link">Reply</a>
+    				<button type="submit" class="btn btn-primary reply-link">Reply</button>
     			</div>
+    			{{ Form::close() }}
     		</div><!-- /.modal-content -->
     	</div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -86,13 +88,18 @@
 
 			$('.reply-link').attr('href', '/admin/messages/send/' + id);
 			$('.view-msg').html('<div class="text-center"><i class="fa fa-refresh fa-spin" style="font-size: 16px;"></i></div>');
-		
+			$('#view-message form').attr('action', '/admin/message/' + id);
+
 			$.ajax({
 				type: 'get',
 				url: '/admin/messages/' + id,
 				success: function(data) {
 					var html = '';
 					html += '<pre>'+ data['message'] +'</pre>';
+					html += '<div class="form-group">';
+					html += '<label for="reply">Reply Message</label>';
+					html += '<textarea class="form-control" rows="5" name="message"></textarea>';
+					html += '</div>';
 
 					$('.view-msg').html(html);
 				}

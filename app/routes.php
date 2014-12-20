@@ -49,7 +49,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('admin/booking/archive', array('uses' => 'BookingController@showArchive'));
 	Route::get('admin/booking/pending', array('uses' => 'BookingController@showPending'));
 	Route::get('admin/booking/reserved', array('uses' => 'BookingController@showReserved'));
-	Route::get('admin/booking/print/{id}', array('uses' => 'BookingController@printPage'));
+	Route::get('admin/booking/print/{id}/{token}', array('uses' => 'BookingController@printPage'));
 	Route::get('admin/booking', array('uses' => 'BookingController@adminBooking'));
 
 	Route::get('admin/messages', array('uses' => 'EmailController@messages'));
@@ -73,18 +73,20 @@ Route::group(array('before' => 'auth|csrf'), function() {
 	Route::delete('admin/location/{id}/archive', array('uses' => 'LocationController@archiveLocation'));
 	Route::put('admin/location/{id}/restore', array('uses' => 'LocationController@restoreLocation'));
 
+	Route::post('admin/message/{id}', array('uses' => 'EmailController@sendMessage'));
+
 	Route::post('admin/create/user', array('uses' => 'AccountController@createUser'));
 	Route::post('admin/change/pass', array('uses' => 'AccountController@changePass'));
 });
 
-Route::get('booking/print/{id}', array('uses' => 'BookingController@printPage'));
+Route::get('booking/print/{id}/{token}', array('uses' => 'BookingController@printPage'));
 Route::post('cars', array('uses' => 'BookingController@cars'));
 Route::get('booking/{carId}/{slug}', array('uses' => 'BookingController@booking'));
 Route::get('cars', array('uses' => 'BookingController@getCars'));
 
-App::error(function(Exception $exception) {
-	Log::error($exception);
+// App::error(function(Exception $exception) {
+// 	Log::error($exception);
 
-	return Redirect::to('/');
-});
+// 	return Redirect::to('/');
+// });
 

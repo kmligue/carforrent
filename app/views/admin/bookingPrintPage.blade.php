@@ -23,30 +23,33 @@
 	<body>
 		<img src="/assets/img/logo.png">
 
-		<div style="text-align: center;">
-				<h1>Reservation Details</h1>
+		<div>
+				<div style="border: 1px solid #000; text-align: center; padding: 8px; margin-bottom: 15px;"><span style="color: rgb(55, 55, 255);">Thank you for booking with us!</span></div>
 			@foreach($booking as $item)
-				<h4>Name: <span style="font-size: 16px; text-transform: capitalize;">{{ $item->fname }} {{ $item->lname }}</span></h4>
-				<h4>Email: <span style="font-size: 16px;">{{ $item->email }}</span></h4>
-				<h4>Credit Card No.: <span style="font-size: 16px;">{{ $item->credit_card_no }}</span></h4>
-				<h4>Expiry Date: <span style="font-size: 16px;">{{ $item->cc_expire_date }}</span></h4>
-				<h4>Credit Card Code: <span style="font-size: 16px;">{{ $item->cc_code }}</span></h4>
-				@foreach($locations as $location)
-					@if($location->id == $item->location_id)
-						<h4>Pick Up Location: <span style="font-size: 16px; text-transform: capitalize;">{{ $location->address }}</span></h4>
-					@endif
-				@endforeach
-				<h4>Pick Up Date/Time: <span style="font-size: 16px;">{{ $item->pick_up_date }}</span></h4>
-				@foreach($locations as $location)
-					@if($location->id == $item->return_location)
-						<h4>Return Location: <span style="font-size: 16px; text-transform: capitalize;">{{ $location->address }}</span></h4>
-					@endif
-				@endforeach
-				<h4>Return Date/Time: <span style="font-size: 16px;">{{ $item->return_date }}</span></h4>
-			
-				<div class="text-capitalize">
-					<img src="/assets/uploads/{{ $item->image }}" style="width: 300px; height: 200px;">
-					<h2>{{ $item->name }}</h2>
+				<div style="width: 50%; float: left">
+					<h5>Name: <span style="font-size: 12px; text-transform: capitalize; margin-bottom: 15px;">{{ $item->fname }} {{ $item->lname }}</span></h5>
+					<h5>Email: <span style="font-size: 12px; margin-bottom: 15px;">{{ $item->email }}</span></h5>
+					<h5>Credit Card No.: <span style="font-size: 12px; margin-bottom: 15px;">{{ $item->credit_card_no }}</span></h5>
+					<h5>Expiry Date: <span style="font-size: 12px; margin-bottom: 15px;">{{ $item->cc_expire_date }}</span></h5>
+				</div>
+				<div style="width: 50%; float: right;"> 
+					@foreach($locations as $location)
+						@if($location->id == $item->location_id)
+							<h5>Pick Up Location: <span style="font-size: 12px; text-transform: capitalize; margin-bottom: 15px;">{{ $location->address }}</span></h5>
+						@endif
+					@endforeach
+					<h5>Pick Up Date/Time: <span style="font-size: 12px; margin-bottom: 15px;">{{ $item->pick_up_date }}</span></h5>
+					@foreach($locations as $location)
+						@if($location->id == $item->return_location)
+							<h5>Return Location: <span style="font-size: 12px; text-transform: capitalize; margin-bottom: 15px;">{{ $location->address }}</span></h5>
+						@endif
+					@endforeach
+					<h5>Return Date/Time: <span style="font-size: 12px; margin-bottom: 15px;">{{ $item->return_date }}</span></h5>
+				
+					<div class="text-capitalize">
+						<img src="/assets/uploads/{{ $item->image }}" style="width: 300px; height: 200px;">
+						<h4 class="text-center">{{ $item->name }}</h4>
+					</div>
 				</div>
 			@endforeach
 		</div>

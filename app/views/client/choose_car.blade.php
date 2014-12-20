@@ -101,7 +101,7 @@
 									</select>
 								</div>
 
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label>
 										<input type="checkbox" name="diff-location" {{ Session::has('diff-location') ? 'checked' : '' }}> <span class="text-muted">Returning to Different location</span>
 									</label>
@@ -111,7 +111,7 @@
 											<option class="text-capitalize" value="{{ $location->id }}" {{ Session::get('return-loc') == $location->id ? 'selected' : '' }}>{{ $location->address }}</option>
 										@endforeach
 									</select>
-								</div>
+								</div> -->
 
 								<div class="form-group">
 									<div class="col-sm-7 pad-5" style="padding-left: 0">

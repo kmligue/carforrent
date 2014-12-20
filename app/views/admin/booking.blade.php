@@ -67,14 +67,14 @@
 								@endforeach	
 							</td>
 							<td class="text-capitalize col-md-2">{{ $booking->return_date }}</td>
-							<td class="text-capitalize col-md-2">{{ $booking->credit_card_no }} - {{ $booking->cc_expire_date }} - {{ $booking->cc_code }}</td>
+							<td class="text-capitalize col-md-2">{{ $booking->credit_card_no }} - {{ $booking->cc_expire_date }}</td>
 							<td class="text-capitalize col-md-6">
 								@if($booking->status == 'Reserved')
 									<a href="#" class="btn btn-sm btn-warning" id="{{ $booking->id }}" title="Done" style="margin-bottom: 5px;" data-toggle="modal" data-target="#done"><i class="fa fa-check" id="{{ $booking->id }}" title="Done"></i></a>
 								@else
 									<a href="#" class="btn btn-sm btn-info" id="{{ $booking->id }}" title="Reserve" style="margin-bottom: 5px;" data-toggle="modal" data-target="#reserve"><i class="fa fa-lock" id="{{ $booking->id }}" title="Reserve" style="font-size: 17px;"></i></a>
 								@endif
-								<a href="/admin/booking/print/{{ $booking->id }}" target="_blank" class="btn btn-sm btn-success" id="{{ $booking->id }}" title="Print"><i class="fa fa-print" id="{{ $booking->id }}" title="Print"></i></a>
+								<a href="/admin/booking/print/{{ $booking->id }}/{{ $booking->token }}" target="_blank" class="btn btn-sm btn-success" id="{{ $booking->id }}" title="Print"><i class="fa fa-print" id="{{ $booking->id }}" title="Print"></i></a>
 							</td>
 						</tr>
 					@endforeach
