@@ -84,9 +84,9 @@ Route::post('cars', array('uses' => 'BookingController@cars'));
 Route::get('booking/{carId}/{slug}', array('uses' => 'BookingController@booking'));
 Route::get('cars', array('uses' => 'BookingController@getCars'));
 
-// App::error(function(Exception $exception) {
-// 	Log::error($exception);
+App::error(function(Exception $exception) {
+	Log::error($exception);
 
-// 	return Redirect::to('/');
-// });
+	return Redirect::to('/');
+});
 
